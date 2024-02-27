@@ -1,19 +1,23 @@
 import 'package:bft_clientes/src/components/customer_tile.dart';
-import 'package:bft_clientes/src/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../controllers/customers_provider.dart';
 import '../models/customer.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    List<Customer> customersList =
-        Provider.of<CustomersProvider>(context).customersList;
+  State<MainScreen> createState() => _MainScreenState();
+}
 
+class _MainScreenState extends State<MainScreen> {
+  ScrollController scrollController = ScrollController();
+
+  @override
+  Widget build(BuildContext context) {
+    List<Customer> customersList = Provider.of<CustomersProvider>(context).customersList;
     return Scaffold(
       backgroundColor: const Color(0xFFF1ECE9),
       appBar: AppBar(
@@ -32,15 +36,29 @@ class MainScreen extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
+        controller: scrollController,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              height: MediaQuery.sizeOf(context).height * 0.75,
+            GestureDetector(
+              onTap: () {
+                scrollController.animateTo(
+                  0,
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.easeIn,
+                );
+              },
+              child: Container(
+                height: MediaQuery.sizeOf(context).height * 0.75,
+                color: Colors.transparent,
+              ),
             ),
             Column(
               children: [
-                const Icon(Icons.swipe_up_outlined),
+                Icon(
+                  Icons.swipe_up_outlined,
+                  color: Colors.black.withAlpha(scrollController.initialScrollOffset.toInt() - scrollController.offset.toInt()),
+                ),
                 Container(
                   height: MediaQuery.sizeOf(context).height * 0.5,
                   decoration: BoxDecoration(
@@ -88,11 +106,9 @@ class MainScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                           child: ListView.separated(
                             padding: const EdgeInsets.symmetric(horizontal: 2),
-                            separatorBuilder: (_, __) =>
-                                const SizedBox(height: 10),
+                            separatorBuilder: (_, __) => const SizedBox(height: 10),
                             itemCount: customersList.length,
-                            itemBuilder: (context, index) =>
-                                CustomerTile(customer: customersList[index]),
+                            itemBuilder: (context, index) => CustomerTile(customer: customersList[index]),
                           ),
                         ),
                       ),
