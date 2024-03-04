@@ -1,14 +1,17 @@
 import 'package:bft_clientes/controllers/customers_provider.dart';
-import 'package:bft_clientes/src/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/customer.dart';
 import 'components/create_customer_modal.dart';
-import 'components/customer_modal.dart';
 import 'components/customer_tile.dart';
 
 class CustomersScreen extends StatefulWidget {
-  const CustomersScreen({super.key});
+  const CustomersScreen({
+    super.key,
+    this.createCustomer = false,
+  });
+
+  final bool createCustomer;
 
   @override
   State<CustomersScreen> createState() => _CustomersScreenState();
@@ -16,6 +19,43 @@ class CustomersScreen extends StatefulWidget {
 
 class _CustomersScreenState extends State<CustomersScreen> {
   List<Customer>? filteredCustomersList;
+
+  Future<Customer?> createCustomerModal() async {
+    return await showModalBottomSheet<Customer>(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: const CreateCustomerModal(),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.createCustomer) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        createCustomerModal().then((customer) {
+          if (customer != null) {
+            setState(() {
+              Provider.of<CustomersProvider>(context, listen: false)
+                  .customersList
+                  .add(customer);
+              filteredCustomersList = null;
+            });
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Cliente cadastrado com sucesso'),
+                backgroundColor: Colors.green,
+              ),
+            );
+          }
+        });
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,18 +81,12 @@ class _CustomersScreenState extends State<CustomersScreen> {
           return FloatingActionButton(
             backgroundColor: const Color(0xff886a4a),
             onPressed: () async {
-              await showModalBottomSheet<Customer>(
-                isScrollControlled: true,
-                context: context,
-                builder: (context) => Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: const CreateCustomerModal(),
-                ),
-              ).then((customer) {
+              createCustomerModal().then((customer) {
                 if (customer != null) {
                   setState(() {
-                    customersList.add(customer);
+                    Provider.of<CustomersProvider>(context, listen: false)
+                        .customersList
+                        .add(customer);
                     filteredCustomersList = null;
                   });
                   ScaffoldMessenger.of(context).showSnackBar(

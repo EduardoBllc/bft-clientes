@@ -23,10 +23,10 @@ class CustomerTile extends StatelessWidget {
         );
       },
       child: Material(
-        type: MaterialType.card,
+        type: MaterialType.canvas,
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        elevation: 2,
+        elevation: 3,
         child: Container(
           padding: const EdgeInsets.all(20),
           child: Center(

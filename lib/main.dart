@@ -1,8 +1,6 @@
-import 'package:bft_clientes/src/constants.dart';
 import 'package:bft_clientes/src/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'controllers/customers_provider.dart';
 
 void main() {

@@ -14,7 +14,7 @@ class CustomersProvider extends ChangeNotifier {
         whatsapp: '54992814567'),
     Customer(
         name: 'Pedro Augusto Dias',
-        birthdate: DateTime(2003, 9, 27),
+        birthdate: DateTime(2003, 2, 28),
         whatsapp: '54995734512'),
     Customer(
         name: 'Claudecir Araujo',
@@ -26,7 +26,7 @@ class CustomersProvider extends ChangeNotifier {
         whatsapp: '7199853505'),
     Customer(
         name: 'João Vitor Alves',
-        birthdate: DateTime(1974, 01, 23),
+        birthdate: DateTime(1974, 2, 29),
         whatsapp: '7198609930'),
     Customer(
         name: 'Marcos Vinicius Barros',
@@ -46,7 +46,7 @@ class CustomersProvider extends ChangeNotifier {
         whatsapp: '4195247733'),
     Customer(
         name: 'João Vitor Souza',
-        birthdate: DateTime(1994, 08, 21),
+        birthdate: DateTime(1994, 2, 21),
         whatsapp: '5196026353'),
     Customer(
         name: 'Benjamin Lima',
@@ -54,7 +54,7 @@ class CustomersProvider extends ChangeNotifier {
         whatsapp: '6190945813'),
     Customer(
         name: 'Luigi Porto',
-        birthdate: DateTime(1977, 09, 14),
+        birthdate: DateTime(1977, 02, 14),
         whatsapp: '3196197147'),
     Customer(
         name: 'Joaquim Barbosa',

@@ -15,11 +15,28 @@ class Customer {
   DateTime birthdate;
   String whatsapp;
 
+  DateTime get _actualYearBirthdate => DateTime(
+        DateTime.now().year,
+        birthdate.month,
+        birthdate.day,
+      );
+
   bool get thisMonthsBirthday {
     return birthdate.month == DateTime.now().month;
   }
 
   bool get todaysBirthday {
-    return DateTime.now().difference(birthdate) < const Duration(days: 1);
+    DateTime now = DateTime.now();
+    return DateTime(now.year, now.month, now.day) == _actualYearBirthdate;
+  }
+
+  bool get thisWeekBirthday {
+    int actualWeekDay = DateTime.now().weekday;
+    DateTime weekInitialDate =
+        DateTime.now().subtract(Duration(days: actualWeekDay));
+    DateTime weekEndDate =
+        DateTime.now().add(Duration(days: 7 - actualWeekDay - 1));
+    return _actualYearBirthdate.isAfter(weekInitialDate) &&
+        _actualYearBirthdate.isBefore(weekEndDate);
   }
 }
