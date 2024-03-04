@@ -1,15 +1,14 @@
 import 'package:bft_clientes/src/components/customer_tile.dart';
 import 'package:bft_clientes/src/customers_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import '../controllers/customers_provider.dart';
 import '../models/birthday_options.dart';
 import '../models/customer.dart';
 import 'components/main_screen_button.dart';
+import 'dart:io' show Platform;
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -41,12 +40,10 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      birthdayRowRenderBox =
-          birthdayRowKey.currentContext!.findRenderObject() as RenderBox;
+      birthdayRowRenderBox = birthdayRowKey.currentContext!.findRenderObject() as RenderBox;
       birthdayRowBoxHeight = birthdayRowRenderBox.size.height;
 
-      revisionButtonRenderBox =
-          revisionButtonKey.currentContext!.findRenderObject() as RenderBox;
+      revisionButtonRenderBox = revisionButtonKey.currentContext!.findRenderObject() as RenderBox;
       revisionButtonBoxWidth = revisionButtonRenderBox.size.width;
       revisionButtonBoxHeight = revisionButtonRenderBox.size.height;
     });
@@ -54,8 +51,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Customer> customersList =
-        Provider.of<CustomersProvider>(context).customersList;
+    List<Customer> customersList = Provider.of<CustomersProvider>(context).customersList;
 
     List<Customer> filteredCustomerList = [];
 
@@ -159,8 +155,7 @@ class _MainScreenState extends State<MainScreen> {
                   height: MediaQuery.sizeOf(context).height * 0.2,
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: const MaterialStatePropertyAll<Color>(
-                          Color(0xffe8e1d8)),
+                      backgroundColor: const MaterialStatePropertyAll<Color>(Color(0xffe8e1d8)),
                       shape: MaterialStatePropertyAll<OutlinedBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
@@ -232,117 +227,116 @@ class _MainScreenState extends State<MainScreen> {
           SlidingUpPanel(
             backdropEnabled: true,
             maxHeight: filteredCustomerList.isNotEmpty
-                ? (birthdayRowBoxHeight! + 50) +
-                    (80 * filteredCustomerList.length).clamp(80, 400)
-                : (birthdayRowBoxHeight! + 30) + 230,
+                ? (birthdayRowBoxHeight! + 50) + (80 * filteredCustomerList.length).clamp(80, 400)
+                : (birthdayRowBoxHeight! + 30) + (Platform.isIOS ? 270 : 230),
             color: const Color(0xFFFAF8F7),
             borderRadius: const BorderRadius.vertical(
               top: Radius.circular(20),
             ),
-            panel: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    key: birthdayRowKey,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Aniversariantes',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: Colors.grey.shade300,
-                            width: 1,
+            panel: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      key: birthdayRowKey,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Aniversariantes',
+                          style: TextStyle(
+                            fontSize: Platform.isIOS ? 22 : 24,
+                            fontWeight: FontWeight.w700,
                           ),
-                          boxShadow: [defaultShadowBox],
                         ),
-                        width: MediaQuery.sizeOf(context).width * 0.36,
-                        child: DropdownButtonFormField<BirthdayOption>(
-                          value: BirthdayOption.day,
-                          icon: const SizedBox(),
-                          items: BirthdayOption.values
-                              .map(
-                                (option) => DropdownMenuItem<BirthdayOption>(
-                                  value: option,
-                                  child: Text(
-                                    option.text,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontSize: 18,
+                        const SizedBox(width: 5),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: Colors.grey.shade300,
+                              width: 1,
+                            ),
+                            boxShadow: [defaultShadowBox],
+                          ),
+                          width: MediaQuery.sizeOf(context).width * 0.36,
+                          child: DropdownButtonFormField<BirthdayOption>(
+                            value: BirthdayOption.day,
+                            icon: const SizedBox(),
+                            items: BirthdayOption.values
+                                .map(
+                                  (option) => DropdownMenuItem<BirthdayOption>(
+                                    value: option,
+                                    child: Text(
+                                      option.text,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: Platform.isIOS ? 16 : 18,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              )
-                              .toList(),
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            border: defaultBorder,
-                            focusedBorder: defaultBorder,
-                            enabledBorder: defaultBorder,
+                                )
+                                .toList(),
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: defaultBorder,
+                              focusedBorder: defaultBorder,
+                              enabledBorder: defaultBorder,
+                            ),
+                            onChanged: (option) {
+                              setState(() {
+                                if (option != null) {
+                                  _birthdayOption = option;
+                                }
+                              });
+                            },
                           ),
-                          onChanged: (option) {
-                            setState(() {
-                              if (option != null) {
-                                _birthdayOption = option;
-                              }
-                            });
-                          },
                         ),
-                      ),
-                    ],
-                  ),
-                  filteredCustomerList.isNotEmpty
-                      ? Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 15),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: ListView.separated(
-                                shrinkWrap: true,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 2, vertical: 5),
-                                separatorBuilder: (_, __) =>
-                                    const SizedBox(height: 10),
-                                itemCount: filteredCustomerList.length,
-                                itemBuilder: (context, index) => CustomerTile(
-                                  customer: filteredCustomerList[index],
+                      ],
+                    ),
+                    filteredCustomerList.isNotEmpty
+                        ? Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 15),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: ListView.separated(
+                                  shrinkWrap: true,
+                                  padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
+                                  separatorBuilder: (_, __) => const SizedBox(height: 10),
+                                  itemCount: filteredCustomerList.length,
+                                  itemBuilder: (context, index) => CustomerTile(
+                                    customer: filteredCustomerList[index],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        )
-                      : Padding(
-                          padding: const EdgeInsets.only(top: 15),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(
-                                Icons.no_accounts_outlined,
-                                size: 130,
-                              ),
-                              SizedBox(
-                                width: MediaQuery.sizeOf(context).width * 0.65,
-                                child: Text(
-                                  'Não há clientes aniversariantes ${_birthdayOption.emptyText}',
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(fontSize: 24),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.no_accounts_outlined,
+                                  size: 130,
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  width: MediaQuery.sizeOf(context).width * 0.65,
+                                  child: Text(
+                                    'Não há clientes aniversariantes ${_birthdayOption.emptyText}',
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(fontSize: 24),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
