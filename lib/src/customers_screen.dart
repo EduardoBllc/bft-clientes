@@ -65,8 +65,11 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
         centerTitle: true,
-        elevation: 2,
+        elevation: 0,
         title: const Text(
           'Barbearia Fernando Teixeira',
           style: TextStyle(
