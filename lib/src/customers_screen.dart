@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../models/customer.dart';
 import 'components/create_customer_modal.dart';
 import 'components/customer_tile.dart';
+import 'constants.dart';
 
 class CustomersScreen extends StatefulWidget {
   const CustomersScreen({
@@ -64,21 +65,8 @@ class _CustomersScreenState extends State<CustomersScreen> {
     filteredCustomersList ??= List.from(customersList);
 
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
-        centerTitle: true,
-        elevation: 0,
-        title: const Text(
-          'Barbearia Fernando Teixeira',
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: 'TenorSans',
-          ),
-        ),
-        backgroundColor: Colors.black,
-      ),
+      backgroundColor: kBackgroundColor,
+      appBar: kDefaultAppBar,
       floatingActionButton: Builder(
         builder: (context) {
           return FloatingActionButton(
@@ -152,10 +140,10 @@ class _CustomersScreenState extends State<CustomersScreen> {
             Expanded(
               child: ListView.separated(
                 itemCount: filteredCustomersList!.length,
-                padding: const EdgeInsets.only(top: 10, bottom: 30),
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
                 separatorBuilder: (_, __) => const SizedBox(height: 10),
                 itemBuilder: (context, index) =>
-                    CustomerTile(customer: customersList[index]),
+                    CustomerTile(customersList[index]),
               ),
             ),
           ],

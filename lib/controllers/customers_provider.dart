@@ -10,27 +10,29 @@ class CustomersProvider extends ChangeNotifier {
         whatsapp: '54996758088'),
     Customer(
         name: 'Adriano Souza Vieira',
-        birthdate: DateTime(1967, 3, 12),
+        birthdate: DateTime(1967, 3, 16),
         whatsapp: '54992814567'),
     Customer(
         name: 'Pedro Augusto Dias',
-        birthdate: DateTime(2003, 3, 12),
+        birthdate: DateTime(2003, 3, 16),
         whatsapp: '54995734512'),
     Customer(
         name: 'Claudecir Araujo',
-        birthdate: DateTime(1973, 3, 12),
+        birthdate: DateTime(1973, 3, 16),
         whatsapp: '54998175339'),
     Customer(
         name: 'Isadora Mendes',
-        birthdate: DateTime(1977, 3, 12),
+        birthdate: DateTime(1977, 3, 16),
         whatsapp: '7199853505'),
     Customer(
-        name: 'João Vitor Alves',
-        birthdate: DateTime(1974, 3, 12),
-        whatsapp: '7198609930'),
+      name: 'João Vitor Alves',
+      birthdate: DateTime(1974, 3, 16),
+      whatsapp: '7198609930',
+      customMessage: 'AAAAAAA',
+    ),
     Customer(
         name: 'Marcos Vinicius Barros',
-        birthdate: DateTime(1967, 03, 12),
+        birthdate: DateTime(1967, 03, 15),
         whatsapp: '8196376662'),
     Customer(
         name: 'Carlos Eduardo Monteiro',

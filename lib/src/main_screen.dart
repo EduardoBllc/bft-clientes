@@ -1,17 +1,18 @@
 import 'package:bft_clientes/src/components/customer_tile.dart';
 import 'package:bft_clientes/src/customers_screen.dart';
-import 'package:bft_clientes/src/messages_screen.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
+import 'package:bft_clientes/src/birthday_screen.dart';
+import 'package:bft_clientes/src/weekly_message_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import '../controllers/customers_provider.dart';
 import '../models/birthday_options.dart';
 import '../models/customer.dart';
-import 'components/main_screen_button.dart';
+import 'package:get/get.dart';
 import 'dart:io' show Platform;
+
+import 'constants.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -25,12 +26,6 @@ class _MainScreenState extends State<MainScreen> {
   late final RenderBox birthdayRowRenderBox;
   double birthdayRowBoxHeight = 0;
 
-  final GlobalKey revisionButtonKey = GlobalKey();
-  late final RenderBox revisionButtonRenderBox;
-  double revisionButtonBoxWidth = 0;
-  double revisionButtonBoxHeight = 0;
-  bool _loading = true;
-
   BirthdayOption _birthdayOption = BirthdayOption.day;
 
   OutlineInputBorder defaultBorder = OutlineInputBorder(
@@ -41,16 +36,8 @@ class _MainScreenState extends State<MainScreen> {
   );
 
   void setSlidingPanelHeight() {
-    birthdayRowRenderBox =
-        birthdayRowKey.currentContext!.findRenderObject() as RenderBox;
+    birthdayRowRenderBox = birthdayRowKey.currentContext!.findRenderObject() as RenderBox;
     birthdayRowBoxHeight = birthdayRowRenderBox.size.height;
-  }
-
-  void setRevisionButtonSizes() {
-    revisionButtonRenderBox =
-        revisionButtonKey.currentContext!.findRenderObject() as RenderBox;
-    revisionButtonBoxWidth = revisionButtonRenderBox.size.width;
-    revisionButtonBoxHeight = revisionButtonRenderBox.size.height;
   }
 
   @override
@@ -58,23 +45,35 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       setSlidingPanelHeight();
-      setRevisionButtonSizes();
-      setState(() {
-        _loading = false;
-      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Customer> customersList =
-        Provider.of<CustomersProvider>(context).customersList;
+    List<Customer> customersList = Provider.of<CustomersProvider>(context).customersList;
 
     List<Customer> filteredCustomerList = [];
 
     void getFilteredCustomerList(bool Function(Customer element) test) {
       filteredCustomerList = customersList.where(test).toList();
     }
+
+    ButtonStyle lightenButtonStyle = ButtonStyle(
+      backgroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
+      shape: MaterialStatePropertyAll<OutlinedBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+      ),
+      elevation: MaterialStateProperty.resolveWith<double>(
+        (states) {
+          if (states.contains(MaterialState.pressed)) {
+            return 0;
+          }
+          return 2;
+        },
+      ),
+    );
 
     switch (_birthdayOption) {
       case BirthdayOption.month:
@@ -88,111 +87,144 @@ class _MainScreenState extends State<MainScreen> {
         break;
     }
 
-    BoxShadow defaultShadowBox = BoxShadow(
-      offset: const Offset(0, 3),
-      blurRadius: 2,
-      color: const Color(0xff000000).withOpacity(0.2),
-    );
-
-    Divider defaultDivider = const Divider(
-      thickness: 1.7,
-      height: 30,
-      indent: 5,
-      endIndent: 5,
-    );
-
     Color fontColor = const Color(0xFF595959);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF1ECE9),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF000000),
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-        scrolledUnderElevation: 0,
-        centerTitle: true,
-        title: const Text(
-          'Barbearia Fernando Teixeira',
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: 'TenorSans',
-            fontWeight: FontWeight.bold,
-            fontSize: 26,
-          ),
-        ),
-      ),
+      backgroundColor: kBackgroundColor,
+      appBar: kDefaultAppBar,
       body: Stack(
         fit: StackFit.expand,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(40, 20, 40, 80),
+            padding: EdgeInsets.fromLTRB(
+              40,
+              20,
+              40,
+              MediaQuery.sizeOf(context).height * 0.2,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: MainScreenButton(
-                    icon: Icons.person_add_alt_1_sharp,
-                    text: 'Cadastro de Clientes',
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const CustomersScreen(
-                            createCustomer: true,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox.fromSize(
+                        size: Size.square(
+                          MediaQuery.sizeOf(context).width * 0.35,
+                        ),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Get.to(
+                              () => const CustomersScreen(createCustomer: true),
+                              transition: Transition.rightToLeft,
+                            );
+                          },
+                          style: lightenButtonStyle,
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.person_add_alt_1,
+                                color: Color(0xFF595959),
+                                size: 55,
+                              ),
+                              Text(
+                                'Cadastrar novo cliente',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Color(0xFF595959),
+                                ),
+                                maxLines: 2,
+                              ),
+                            ],
                           ),
                         ),
-                      );
-                    },
-                  ),
-                ),
-                defaultDivider,
-                Expanded(
-                  child: MainScreenButton(
-                    icon: Icons.groups,
-                    text: 'Todos Clientes',
-                    reverted: true,
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const CustomersScreen(),
+                      ),
+                      SizedBox.fromSize(
+                        size: Size.square(
+                          MediaQuery.sizeOf(context).width * 0.35,
                         ),
-                      );
-                    },
-                  ),
-                ),
-                defaultDivider,
-                Expanded(
-                  child: MainScreenButton(
-                    icon: Icons.edit_note,
-                    text: 'Mensagem da Semana',
-                    onPressed: () {},
-                  ),
-                ),
-                defaultDivider,
-                SizedBox(
-                  key: revisionButtonKey,
-                  height: MediaQuery.sizeOf(context).height * 0.2,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: const MaterialStatePropertyAll<Color>(
-                          Color(0xffe8e1d8)),
-                      shape: MaterialStatePropertyAll<OutlinedBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Get.to(
+                              () => const CustomersScreen(),
+                              transition: Transition.rightToLeft,
+                            );
+                          },
+                          style: lightenButtonStyle,
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.groups,
+                                color: Color(0xFF595959),
+                                size: 55,
+                              ),
+                              Text(
+                                'Todos Clientes',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Color(0xFF595959),
+                                ),
+                                maxLines: 2,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      elevation: MaterialStateProperty.resolveWith<double>(
-                        (states) {
-                          if (states.contains(MaterialState.pressed)) {
-                            return 0;
-                          }
-                          return 3;
-                        },
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).height * 0.13,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.to(
+                        () => const WeekMessageScreen(),
+                        transition: Transition.rightToLeft,
+                      );
+                    },
+                    style: lightenButtonStyle,
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.edit_note,
+                          color: Color(0xFF595959),
+                          size: 60,
+                        ),
+                        Expanded(
+                          child: Text(
+                            'Mensagem da semana',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 22,
+                              color: Color(0xFF595959),
+                            ),
+                            maxLines: 2,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).height * 0.13,
+                  child: ElevatedButton(
+                    style: lightenButtonStyle.copyWith(
+                      backgroundColor: const MaterialStatePropertyAll<Color>(
+                        Color(0xFFE0D8CE),
                       ),
                     ),
                     onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const MessagesScreen(),
-                        ),
+                      Get.to(
+                        () => const DailyMessagesScreen(),
+                        transition: Transition.rightToLeft,
                       );
                     },
                     child: Row(
@@ -200,75 +232,80 @@ class _MainScreenState extends State<MainScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            'Revisar Mensagens para Disparo',
+                            'Aniversariantes',
                             textAlign: TextAlign.left,
                             style: TextStyle(fontSize: 26, color: fontColor),
                             maxLines: 3,
                           ),
                         ),
                         const SizedBox(width: 10),
-                        SizedBox(
-                          width: revisionButtonBoxWidth * 0.35,
-                          height: revisionButtonBoxHeight * 0.6,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                top: 0,
-                                left: 0,
-                                child: Icon(
-                                  Icons.message,
-                                  color: fontColor,
-                                  size: 60,
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                right: 0,
-                                child: Icon(
-                                  Icons.check_box,
-                                  color: fontColor,
-                                  size: 60,
-                                ),
-                              ),
-                            ],
+                        Icon(
+                          Icons.celebration,
+                          color: fontColor,
+                          size: 60,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).height * 0.14,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.to(
+                        () => const WeekMessageScreen(),
+                        transition: Transition.rightToLeft,
+                      );
+                    },
+                    style: lightenButtonStyle,
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.settings,
+                          color: Color(0xFF595959),
+                          size: 60,
+                        ),
+                        Expanded(
+                          child: Text(
+                            'Configurações',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 22,
+                              color: Color(0xFF595959),
+                            ),
+                            maxLines: 2,
                           ),
                         ),
                       ],
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: Platform.isIOS ? 10 : 20,
-                      bottom: Platform.isIOS ? 50 : 20),
-                  child: Icon(
-                    Icons.keyboard_double_arrow_up,
-                    size: 35,
-                    color: fontColor.withOpacity(0.5),
-                  ),
-                ),
               ],
             ),
           ),
-          if (_loading)
-            Container(
-              color: const Color(0xFFF1ECE9),
-              child: const Center(
-                child: SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: CircularProgressIndicator(
-                    color: Color(0xff886a4a),
-                  ),
+          Padding(
+            padding: EdgeInsets.only(bottom: Platform.isIOS ? 130 : 110),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Shimmer.fromColors(
+                direction: ShimmerDirection.btt,
+                baseColor: fontColor.withOpacity(0.5),
+                highlightColor: fontColor.withOpacity(0.2),
+                period: const Duration(seconds: 5),
+                child: const Icon(
+                  Icons.keyboard_double_arrow_up,
+                  size: 35,
                 ),
               ),
             ),
+          ),
           SlidingUpPanel(
             backdropEnabled: true,
             minHeight: Platform.isIOS ? 120 : 100,
             maxHeight: filteredCustomerList.isNotEmpty
                 ? (birthdayRowBoxHeight + (Platform.isIOS ? 80 : 50)) +
-                    (80 * filteredCustomerList.length).clamp(80, 400)
+                    (80 * filteredCustomerList.length).clamp(80, 300)
                 : (birthdayRowBoxHeight + 30) + (Platform.isIOS ? 260 : 230),
             color: const Color(0xFFFAF8F7),
             borderRadius: const BorderRadius.vertical(
@@ -300,38 +337,30 @@ class _MainScreenState extends State<MainScreen> {
                           key: birthdayRowKey,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               'Aniversariantes',
                               style: TextStyle(
-                                fontSize: Platform.isIOS ? 22 : 24,
+                                fontSize: 20,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                            const SizedBox(width: 5),
+                            const SizedBox(width: 10),
                             Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: Colors.grey.shade300,
-                                  width: 1,
-                                ),
-                                boxShadow: [defaultShadowBox],
+                                boxShadow: [kBottomBoxShadow],
                               ),
-                              width: MediaQuery.sizeOf(context).width * 0.36,
+                              width: MediaQuery.sizeOf(context).width * 0.43,
                               child: DropdownButtonFormField<BirthdayOption>(
                                 value: BirthdayOption.day,
-                                icon: const SizedBox(),
                                 items: BirthdayOption.values
                                     .map(
-                                      (option) =>
-                                          DropdownMenuItem<BirthdayOption>(
+                                      (option) => DropdownMenuItem<BirthdayOption>(
                                         value: option,
                                         child: Text(
                                           option.text,
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontSize: Platform.isIOS ? 16 : 18,
-                                          ),
+                                          style: const TextStyle(fontSize: 16),
                                         ),
                                       ),
                                     )
@@ -362,22 +391,19 @@ class _MainScreenState extends State<MainScreen> {
                                     borderRadius: BorderRadius.circular(15),
                                     child: ListView.separated(
                                       shrinkWrap: true,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 2, vertical: 5),
-                                      separatorBuilder: (_, __) =>
-                                          const SizedBox(height: 10),
+                                      padding:
+                                          const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
+                                      separatorBuilder: (_, __) => const SizedBox(height: 10),
                                       itemCount: filteredCustomerList.length,
-                                      itemBuilder: (context, index) =>
-                                          CustomerTile(
-                                        customer: filteredCustomerList[index],
+                                      itemBuilder: (context, index) => CustomerTile(
+                                        filteredCustomerList[index],
                                       ),
                                     ),
                                   ),
                                 ),
                               )
                             : Padding(
-                                padding: EdgeInsets.only(
-                                    top: Platform.isIOS ? 25 : 15),
+                                padding: EdgeInsets.only(top: Platform.isIOS ? 25 : 15),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -387,8 +413,7 @@ class _MainScreenState extends State<MainScreen> {
                                       size: 130,
                                     ),
                                     SizedBox(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          0.72,
+                                      width: MediaQuery.sizeOf(context).width * 0.72,
                                       child: Text(
                                         'Não há clientes aniversariantes ${_birthdayOption.emptyText}',
                                         textAlign: TextAlign.center,

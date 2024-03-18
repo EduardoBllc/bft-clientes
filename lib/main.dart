@@ -1,5 +1,6 @@
 import 'package:bft_clientes/src/main_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'controllers/customers_provider.dart';
 
@@ -16,9 +17,16 @@ class CustomersManager extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => CustomersProvider()),
       ],
-      child: const MaterialApp(
+      child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        home: MainScreen(),
+        theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+            iconTheme: IconThemeData(
+              color: Colors.white,
+            ),
+          ),
+        ),
+        home: const MainScreen(),
       ),
     );
   }

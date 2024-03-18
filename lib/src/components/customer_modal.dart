@@ -5,7 +5,10 @@ import "../../models/customer.dart";
 import 'package:intl/intl.dart';
 
 class CustomerModal extends StatelessWidget {
-  const CustomerModal({super.key, required this.customer});
+  const CustomerModal(
+    this.customer, {
+    super.key,
+  });
 
   final Customer customer;
 

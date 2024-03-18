@@ -3,6 +3,7 @@ class Customer {
     required this.name,
     required this.birthdate,
     required this.whatsapp,
+    this.customMessage,
   }) {
     id = actualID;
     actualID++;
@@ -14,6 +15,7 @@ class Customer {
   String name;
   DateTime birthdate;
   String whatsapp;
+  String? customMessage;
 
   DateTime get _actualYearBirthdate => DateTime(
         DateTime.now().year,
