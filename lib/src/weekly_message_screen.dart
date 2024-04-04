@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'dart:io' show Platform;
 import 'constants.dart';
 
 class WeekMessageScreen extends StatelessWidget {
@@ -42,7 +42,7 @@ class WeekMessageScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   Container(
-                    height: MediaQuery.sizeOf(context).height * 0.5,
+                    height: Platform.isIOS ? MediaQuery.sizeOf(context).height * 0.45 : MediaQuery.sizeOf(context).height * 0.5,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border(
@@ -67,8 +67,7 @@ class WeekMessageScreen extends StatelessWidget {
                               decoration: InputDecoration(
                                 filled: false,
                                 border: InputBorder.none,
-                                hintText:
-                                    'Digite aqui a mensagem que será enviada',
+                                hintText: 'Digite aqui a mensagem que será enviada',
                                 hintStyle: TextStyle(
                                   color: Colors.grey.shade500,
                                 ),
@@ -112,21 +111,13 @@ class WeekMessageScreen extends StatelessWidget {
                         height: 75,
                         child: ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll<Color>(
-                                kWeakBrownColor),
-                            foregroundColor:
-                                const MaterialStatePropertyAll<Color>(
-                                    Colors.white),
-                            textStyle:
-                                const MaterialStatePropertyAll<TextStyle>(
-                              TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
+                            backgroundColor: MaterialStatePropertyAll<Color>(kWeakBrownColor),
+                            foregroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
+                            textStyle: const MaterialStatePropertyAll<TextStyle>(
+                              TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                             ),
-                            elevation:
-                                MaterialStateProperty.resolveWith<double>(
-                              (states) => states.contains(MaterialState.pressed)
-                                  ? 0
-                                  : 2,
+                            elevation: MaterialStateProperty.resolveWith<double>(
+                              (states) => states.contains(MaterialState.pressed) ? 0 : 2,
                             ),
                             shape: MaterialStatePropertyAll<OutlinedBorder>(
                               RoundedRectangleBorder(
@@ -149,16 +140,13 @@ class WeekMessageScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ButtonStyle(
-                    backgroundColor:
-                        const MaterialStatePropertyAll<Color>(Colors.white),
-                    foregroundColor:
-                        MaterialStatePropertyAll<Color>(kWeakBrownColor),
+                    backgroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
+                    foregroundColor: MaterialStatePropertyAll<Color>(kWeakBrownColor),
                     textStyle: const MaterialStatePropertyAll<TextStyle>(
                       TextStyle(fontWeight: FontWeight.bold),
                     ),
                     elevation: MaterialStateProperty.resolveWith<double>(
-                      (states) =>
-                          states.contains(MaterialState.pressed) ? 0 : 2,
+                      (states) => states.contains(MaterialState.pressed) ? 0 : 2,
                     ),
                     overlayColor: const MaterialStatePropertyAll<Color>(
                       Colors.black12,

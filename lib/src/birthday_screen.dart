@@ -1,7 +1,7 @@
 import 'package:bft_clientes/controllers/customers_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'dart:io' show Platform;
 import '../models/customer.dart';
 import 'components/customer_tile.dart';
 import 'constants.dart';
@@ -12,16 +12,10 @@ class DailyMessagesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Customer> todaysBirthdayCustomerList =
-        Provider.of<CustomersProvider>(context, listen: false)
-            .customersList
-            .where((customer) => customer.todaysBirthday)
-            .toList();
+        Provider.of<CustomersProvider>(context, listen: false).customersList.where((customer) => customer.todaysBirthday).toList();
 
-    List<Customer> customMessageCustomerList = todaysBirthdayCustomerList
-        .where((customer) =>
-            customer.customMessage != null &&
-            customer.customMessage!.isNotEmpty)
-        .toList();
+    List<Customer> customMessageCustomerList =
+        todaysBirthdayCustomerList.where((customer) => customer.customMessage != null && customer.customMessage!.isNotEmpty).toList();
 
     return Scaffold(
       backgroundColor: kBackgroundColor,
@@ -75,8 +69,7 @@ class DailyMessagesScreen extends StatelessWidget {
                                         top: Radius.circular(7),
                                       ),
                                     ),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10),
+                                    padding: const EdgeInsets.symmetric(vertical: 10),
                                     child: const Text(
                                       'Aniversariantes de hoje',
                                       style: TextStyle(
@@ -90,12 +83,9 @@ class DailyMessagesScreen extends StatelessWidget {
                                   Expanded(
                                     child: ListView.separated(
                                       padding: const EdgeInsets.all(10),
-                                      separatorBuilder: (_, __) =>
-                                          const SizedBox(height: 10),
-                                      itemCount:
-                                          todaysBirthdayCustomerList.length,
-                                      itemBuilder: (context, index) =>
-                                          CustomerTile(
+                                      separatorBuilder: (_, __) => const SizedBox(height: 10),
+                                      itemCount: todaysBirthdayCustomerList.length,
+                                      itemBuilder: (context, index) => CustomerTile(
                                         todaysBirthdayCustomerList[index],
                                         messagesScreen: true,
                                       ),
@@ -113,8 +103,7 @@ class DailyMessagesScreen extends StatelessWidget {
                                       size: 130,
                                     ),
                                     SizedBox(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          0.68,
+                                      width: MediaQuery.sizeOf(context).width * 0.68,
                                       child: const Text(
                                         'Não há mensagens para serem enviadas hoje',
                                         textAlign: TextAlign.center,
@@ -145,8 +134,7 @@ class DailyMessagesScreen extends StatelessWidget {
                                         top: Radius.circular(7),
                                       ),
                                     ),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10),
+                                    padding: const EdgeInsets.symmetric(vertical: 10),
                                     child: Text(
                                       'Aniversariantes com mensagem personalizada:',
                                       style: TextStyle(
@@ -160,12 +148,9 @@ class DailyMessagesScreen extends StatelessWidget {
                                   Expanded(
                                     child: ListView.separated(
                                       padding: const EdgeInsets.all(10),
-                                      separatorBuilder: (_, __) =>
-                                          const SizedBox(height: 10),
-                                      itemCount:
-                                          customMessageCustomerList.length,
-                                      itemBuilder: (context, index) =>
-                                          CustomerTile(
+                                      separatorBuilder: (_, __) => const SizedBox(height: 10),
+                                      itemCount: customMessageCustomerList.length,
+                                      itemBuilder: (context, index) => CustomerTile(
                                         customMessageCustomerList[index],
                                         messagesScreen: true,
                                       ),
@@ -183,8 +168,7 @@ class DailyMessagesScreen extends StatelessWidget {
                                       size: 130,
                                     ),
                                     SizedBox(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          0.68,
+                                      width: MediaQuery.sizeOf(context).width * 0.68,
                                       child: const Text(
                                         'Ainda não há aniversariantes de hoje'
                                         ' com mensagem personalidzada',
@@ -208,7 +192,10 @@ class DailyMessagesScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Container(
-                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 15,
+                                horizontal: 10,
+                              ),
                               decoration: BoxDecoration(
                                 color: Colors.grey.shade500,
                                 borderRadius: const BorderRadius.vertical(
@@ -239,8 +226,7 @@ class DailyMessagesScreen extends StatelessWidget {
                                   decoration: InputDecoration(
                                     filled: false,
                                     border: InputBorder.none,
-                                    hintText:
-                                        'Digite aqui a mensagem que será enviada',
+                                    hintText: 'Digite aqui a mensagem que será enviada',
                                     hintStyle: TextStyle(
                                       color: Colors.grey.shade500,
                                     ),
@@ -256,13 +242,13 @@ class DailyMessagesScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SafeArea(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [kTopBoxShadow],
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 15),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [kTopBoxShadow],
+              ),
+              padding: Platform.isIOS ? const EdgeInsets.only(top: 15) : const EdgeInsets.symmetric(vertical: 15),
+              child: SafeArea(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -272,17 +258,13 @@ class DailyMessagesScreen extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {},
                         style: ButtonStyle(
-                          backgroundColor:
-                              const MaterialStatePropertyAll<Color>(
-                                  Colors.white),
-                          foregroundColor:
-                              MaterialStatePropertyAll<Color>(kWeakBrownColor),
+                          backgroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
+                          foregroundColor: MaterialStatePropertyAll<Color>(kWeakBrownColor),
                           textStyle: const MaterialStatePropertyAll<TextStyle>(
                             TextStyle(fontWeight: FontWeight.bold),
                           ),
                           elevation: MaterialStateProperty.resolveWith<double>(
-                            (states) =>
-                                states.contains(MaterialState.pressed) ? 0 : 2,
+                            (states) => states.contains(MaterialState.pressed) ? 0 : 2,
                           ),
                           overlayColor: const MaterialStatePropertyAll<Color>(
                             Colors.black12,
