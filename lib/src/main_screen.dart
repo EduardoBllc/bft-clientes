@@ -1,17 +1,19 @@
+import 'dart:io' show Platform;
+
+import 'package:bft_clientes/src/birthday_screen.dart';
 import 'package:bft_clientes/src/components/customer_tile.dart';
 import 'package:bft_clientes/src/customers_screen.dart';
-import 'package:bft_clientes/src/birthday_screen.dart';
+import 'package:bft_clientes/src/settings_screen.dart';
 import 'package:bft_clientes/src/weekly_message_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
 import '../controllers/customers_provider.dart';
 import '../models/birthday_options.dart';
 import '../models/customer.dart';
-import 'package:get/get.dart';
-import 'dart:io' show Platform;
-
 import 'constants.dart';
 
 class MainScreen extends StatefulWidget {
@@ -36,7 +38,8 @@ class _MainScreenState extends State<MainScreen> {
   );
 
   void setSlidingPanelHeight() {
-    birthdayRowRenderBox = birthdayRowKey.currentContext!.findRenderObject() as RenderBox;
+    birthdayRowRenderBox =
+        birthdayRowKey.currentContext!.findRenderObject() as RenderBox;
     birthdayRowBoxHeight = birthdayRowRenderBox.size.height;
   }
 
@@ -50,7 +53,8 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Customer> customersList = Provider.of<CustomersProvider>(context).customersList;
+    List<Customer> customersList =
+        Provider.of<CustomersProvider>(context).customersList;
 
     List<Customer> filteredCustomerList = [];
 
@@ -253,7 +257,7 @@ class _MainScreenState extends State<MainScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       Get.to(
-                        () => const WeekMessageScreen(),
+                        () => const SettingsScreen(),
                         transition: Transition.rightToLeft,
                       );
                     },
@@ -355,7 +359,8 @@ class _MainScreenState extends State<MainScreen> {
                                 value: BirthdayOption.day,
                                 items: BirthdayOption.values
                                     .map(
-                                      (option) => DropdownMenuItem<BirthdayOption>(
+                                      (option) =>
+                                          DropdownMenuItem<BirthdayOption>(
                                         value: option,
                                         child: Text(
                                           option.text,
@@ -391,11 +396,13 @@ class _MainScreenState extends State<MainScreen> {
                                     borderRadius: BorderRadius.circular(15),
                                     child: ListView.separated(
                                       shrinkWrap: true,
-                                      padding:
-                                          const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
-                                      separatorBuilder: (_, __) => const SizedBox(height: 10),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 2, vertical: 5),
+                                      separatorBuilder: (_, __) =>
+                                          const SizedBox(height: 10),
                                       itemCount: filteredCustomerList.length,
-                                      itemBuilder: (context, index) => CustomerTile(
+                                      itemBuilder: (context, index) =>
+                                          CustomerTile(
                                         filteredCustomerList[index],
                                       ),
                                     ),
@@ -403,7 +410,8 @@ class _MainScreenState extends State<MainScreen> {
                                 ),
                               )
                             : Padding(
-                                padding: EdgeInsets.only(top: Platform.isIOS ? 25 : 15),
+                                padding: EdgeInsets.only(
+                                    top: Platform.isIOS ? 25 : 15),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -413,7 +421,8 @@ class _MainScreenState extends State<MainScreen> {
                                       size: 130,
                                     ),
                                     SizedBox(
-                                      width: MediaQuery.sizeOf(context).width * 0.72,
+                                      width: MediaQuery.sizeOf(context).width *
+                                          0.72,
                                       child: Text(
                                         'Não há clientes aniversariantes ${_birthdayOption.emptyText}',
                                         textAlign: TextAlign.center,

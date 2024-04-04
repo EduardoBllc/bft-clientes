@@ -1,6 +1,7 @@
 import 'package:bft_clientes/controllers/customers_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../models/customer.dart';
 import 'components/create_customer_modal.dart';
 import 'components/customer_tile.dart';
@@ -104,7 +105,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
         child: Column(
           children: [
             Material(
-              color: const Color(0xff37363d),
+              color: kWeakBrownColor,
               elevation: 2,
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -115,12 +116,16 @@ class _CustomersScreenState extends State<CustomersScreen> {
                     decoration: const InputDecoration(
                       prefixIcon: Icon(
                         Icons.search,
-                        color: Color(0xFF9f9f9f),
+                        color: Colors.white,
                       ),
                       hintText: 'Pesquisar por nome',
-                      hintStyle: TextStyle(color: Color(0xFF9f9f9f)),
+                      hintStyle: TextStyle(
+                        color: Colors.white,
+                      ),
                       enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF707070)),
+                        borderSide: BorderSide(
+                          color: Colors.white,
+                        ),
                       ),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white, width: 2),
