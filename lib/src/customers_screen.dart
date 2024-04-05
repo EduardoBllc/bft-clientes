@@ -27,8 +27,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
       isScrollControlled: true,
       context: context,
       builder: (context) => Padding(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: const CreateCustomerModal(),
       ),
     );
@@ -42,9 +41,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
         createCustomerModal().then((customer) {
           if (customer != null) {
             setState(() {
-              Provider.of<CustomersProvider>(context, listen: false)
-                  .customersList
-                  .add(customer);
+              Provider.of<CustomersProvider>(context, listen: false).customersList.add(customer);
               filteredCustomersList = null;
             });
             ScaffoldMessenger.of(context).showSnackBar(
@@ -61,8 +58,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Customer> customersList =
-        Provider.of<CustomersProvider>(context).customersList;
+    List<Customer> customersList = Provider.of<CustomersProvider>(context).customersList;
     filteredCustomersList ??= List.from(customersList);
 
     return Scaffold(
@@ -76,9 +72,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
               createCustomerModal().then((customer) {
                 if (customer != null) {
                   setState(() {
-                    Provider.of<CustomersProvider>(context, listen: false)
-                        .customersList
-                        .add(customer);
+                    Provider.of<CustomersProvider>(context, listen: false).customersList.add(customer);
                     filteredCustomersList = null;
                   });
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -112,6 +106,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                 height: 80,
                 child: Center(
                   child: TextField(
+                    style: const TextStyle(color: Colors.white),
                     autofocus: false,
                     decoration: const InputDecoration(
                       prefixIcon: Icon(
@@ -134,7 +129,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                     onChanged: (value) {
                       setState(() {
                         filteredCustomersList = customersList
-                            .where((customer) => customer.name.contains(value))
+                            .where((customer) => customer.name.toLowerCase().contains(value.toLowerCase()))
                             .toList();
                       });
                     },
@@ -147,8 +142,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                 itemCount: filteredCustomersList!.length,
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
                 separatorBuilder: (_, __) => const SizedBox(height: 10),
-                itemBuilder: (context, index) =>
-                    CustomerTile(customersList[index]),
+                itemBuilder: (context, index) => CustomerTile(filteredCustomersList![index]),
               ),
             ),
           ],

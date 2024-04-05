@@ -34,11 +34,11 @@ class Customer {
 
   bool get thisWeekBirthday {
     int actualWeekDay = DateTime.now().weekday;
-    DateTime weekInitialDate =
-        DateTime.now().subtract(Duration(days: actualWeekDay));
-    DateTime weekEndDate =
-        DateTime.now().add(Duration(days: 7 - actualWeekDay - 1));
-    return _actualYearBirthdate.isAfter(weekInitialDate) &&
-        _actualYearBirthdate.isBefore(weekEndDate);
+    DateTime weekInitialDate = DateTime.now().subtract(Duration(days: actualWeekDay));
+    DateTime weekEndDate = DateTime.now().add(Duration(days: 7 - actualWeekDay - 1));
+    return _actualYearBirthdate.isAfter(weekInitialDate) && _actualYearBirthdate.isBefore(weekEndDate);
   }
+
+  @override
+  String toString() => name;
 }

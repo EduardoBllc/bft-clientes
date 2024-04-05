@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
+
+import 'package:flutter/material.dart';
+
 import 'constants.dart';
 
 class WeekMessageScreen extends StatelessWidget {
@@ -42,7 +44,9 @@ class WeekMessageScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   Container(
-                    height: Platform.isIOS ? MediaQuery.sizeOf(context).height * 0.45 : MediaQuery.sizeOf(context).height * 0.5,
+                    height: Platform.isIOS
+                        ? MediaQuery.sizeOf(context).height * 0.45
+                        : MediaQuery.sizeOf(context).height * 0.5,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border(
@@ -75,6 +79,39 @@ class WeekMessageScreen extends StatelessWidget {
                             ),
                           ),
                         ),
+                        ClipRRect(
+                          borderRadius: const BorderRadius.vertical(
+                            bottom: Radius.circular(10),
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: kCreamColor,
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 5,
+                              horizontal: 40,
+                            ),
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll<Color>(Colors.grey.shade600),
+                                foregroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
+                                textStyle: const MaterialStatePropertyAll<TextStyle>(
+                                  TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                                ),
+                                elevation: MaterialStateProperty.resolveWith<double>(
+                                  (states) => states.contains(MaterialState.pressed) ? 0 : 2,
+                                ),
+                                shape: MaterialStatePropertyAll<OutlinedBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {},
+                              child: const Text('Repetir a Anterior'),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -87,7 +124,7 @@ class WeekMessageScreen extends StatelessWidget {
                   boxShadow: [kBottomBoxShadow],
                   color: Colors.white,
                 ),
-                padding: EdgeInsets.only(right: 3),
+                padding: const EdgeInsets.only(right: 3),
                 height: 80,
                 child: Row(
                   children: [
@@ -114,7 +151,10 @@ class WeekMessageScreen extends StatelessWidget {
                             backgroundColor: MaterialStatePropertyAll<Color>(kWeakBrownColor),
                             foregroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
                             textStyle: const MaterialStatePropertyAll<TextStyle>(
-                              TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                              TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
                             ),
                             elevation: MaterialStateProperty.resolveWith<double>(
                               (states) => states.contains(MaterialState.pressed) ? 0 : 2,
