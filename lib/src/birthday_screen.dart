@@ -1,4 +1,5 @@
 import 'package:bft_clientes/controllers/customers_provider.dart';
+import 'package:bft_clientes/controllers/messages_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:io' show Platform;
@@ -12,10 +13,12 @@ class DailyMessagesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Customer> todaysBirthdayCustomerList =
-        Provider.of<CustomersProvider>(context, listen: false).customersList.where((customer) => customer.todaysBirthday).toList();
+        Provider.of<CustomersProvider>(context).customersList.where((customer) => customer.todaysBirthday).toList();
 
     List<Customer> customMessageCustomerList =
         todaysBirthdayCustomerList.where((customer) => customer.customMessage != null && customer.customMessage!.isNotEmpty).toList();
+
+    String defaultMessage = Provider.of<MessagesProvider>(context, listen: false).defaultBirthdayMessage;
 
     return Scaffold(
       backgroundColor: kBackgroundColor,
@@ -134,7 +137,10 @@ class DailyMessagesScreen extends StatelessWidget {
                                         top: Radius.circular(7),
                                       ),
                                     ),
-                                    padding: const EdgeInsets.symmetric(vertical: 10),
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 10,
+                                      horizontal: 20,
+                                    ),
                                     child: Text(
                                       'Aniversariantes com mensagem personalizada:',
                                       style: TextStyle(
@@ -223,10 +229,12 @@ class DailyMessagesScreen extends StatelessWidget {
                                   autofocus: false,
                                   expands: true,
                                   maxLines: null,
+                                  initialValue: defaultMessage,
                                   decoration: InputDecoration(
                                     filled: false,
                                     border: InputBorder.none,
                                     hintText: 'Digite aqui a mensagem que será enviada',
+                                    hintMaxLines: 2,
                                     hintStyle: TextStyle(
                                       color: Colors.grey.shade500,
                                     ),

@@ -57,4 +57,9 @@ class CustomersProvider extends ChangeNotifier {
     Customer(name: 'Eduardo Silva', birthdate: DateTime(1978, 4, 4), whatsapp: '21987665439'),
     Customer(name: 'Roberto Farias', birthdate: DateTime(1992, 4, 4), whatsapp: '31987665440'),
   ];
+
+  void changeCustomerMessage(Customer customer, String message) {
+    customersList[customersList.indexOf(customer)].customMessage = message;
+    notifyListeners();
+  }
 }

@@ -1,6 +1,8 @@
 import 'dart:io' show Platform;
 
+import 'package:bft_clientes/controllers/messages_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'constants.dart';
 
@@ -9,6 +11,8 @@ class WeekMessageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String providerMessage = Provider.of<MessagesProvider>(context, listen: false).weeklyMessage;
+
     return Scaffold(
       backgroundColor: kBackgroundColor,
       appBar: AppBar(
@@ -44,9 +48,7 @@ class WeekMessageScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   Container(
-                    height: Platform.isIOS
-                        ? MediaQuery.sizeOf(context).height * 0.45
-                        : MediaQuery.sizeOf(context).height * 0.5,
+                    height: Platform.isIOS ? MediaQuery.sizeOf(context).height * 0.45 : MediaQuery.sizeOf(context).height * 0.5,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border(
@@ -66,12 +68,14 @@ class WeekMessageScreen extends StatelessWidget {
                             ),
                             child: TextFormField(
                               autofocus: false,
+                              initialValue: providerMessage,
                               expands: true,
                               maxLines: null,
                               decoration: InputDecoration(
                                 filled: false,
                                 border: InputBorder.none,
                                 hintText: 'Digite aqui a mensagem que será enviada',
+                                hintMaxLines: 2,
                                 hintStyle: TextStyle(
                                   color: Colors.grey.shade500,
                                 ),

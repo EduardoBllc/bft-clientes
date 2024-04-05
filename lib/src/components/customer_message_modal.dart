@@ -15,23 +15,18 @@ class MessageEditingCustomerModal extends StatefulWidget {
   final Customer customer;
 
   @override
-  State<MessageEditingCustomerModal> createState() =>
-      _MessageEditingCustomerModalState();
+  State<MessageEditingCustomerModal> createState() => _MessageEditingCustomerModalState();
 }
 
-class _MessageEditingCustomerModalState
-    extends State<MessageEditingCustomerModal> {
+class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModal> {
   TextEditingController messageController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    List<Customer> providerCustomersList =
-        Provider.of<CustomersProvider>(context, listen: false).customersList;
-    Customer providerCustomer =
-        providerCustomersList[providerCustomersList.indexOf(widget.customer)];
-    if (providerCustomer.customMessage != null &&
-        providerCustomer.customMessage!.isNotEmpty) {
+    List<Customer> providerCustomersList = Provider.of<CustomersProvider>(context, listen: false).customersList;
+    Customer providerCustomer = providerCustomersList[providerCustomersList.indexOf(widget.customer)];
+    if (providerCustomer.customMessage != null && providerCustomer.customMessage!.isNotEmpty) {
       messageController.text = providerCustomer.customMessage!;
     }
   }
@@ -121,17 +116,12 @@ class _MessageEditingCustomerModalState
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    List<Customer> providerCustomersList =
-                        Provider.of<CustomersProvider>(context, listen: false)
-                            .customersList;
-                    providerCustomersList[
-                            providerCustomersList.indexOf(widget.customer)]
-                        .customMessage = messageController.text;
+                    Provider.of<CustomersProvider>(context, listen: false).changeCustomerMessage(widget.customer, messageController.text);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         dismissDirection: DismissDirection.horizontal,
                         margin: EdgeInsets.symmetric(
-                          vertical: 90,
+                          vertical: 80,
                           horizontal: 10,
                         ),
                         behavior: SnackBarBehavior.floating,
@@ -142,8 +132,7 @@ class _MessageEditingCustomerModalState
                     Navigator.pop(context);
                   },
                   style: ButtonStyle(
-                    backgroundColor:
-                        const MaterialStatePropertyAll<Color>(Colors.white),
+                    backgroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
                     foregroundColor: const MaterialStatePropertyAll<Color>(
                       Color(0xff886a4a),
                     ),
@@ -151,8 +140,7 @@ class _MessageEditingCustomerModalState
                       TextStyle(fontWeight: FontWeight.bold),
                     ),
                     elevation: MaterialStateProperty.resolveWith<double>(
-                      (states) =>
-                          states.contains(MaterialState.pressed) ? 0 : 2,
+                      (states) => states.contains(MaterialState.pressed) ? 0 : 2,
                     ),
                     overlayColor: const MaterialStatePropertyAll<Color>(
                       Colors.black12,
