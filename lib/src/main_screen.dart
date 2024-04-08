@@ -38,8 +38,7 @@ class _MainScreenState extends State<MainScreen> {
   );
 
   void setSlidingPanelHeight() {
-    birthdayRowRenderBox =
-        birthdayRowKey.currentContext!.findRenderObject() as RenderBox;
+    birthdayRowRenderBox = birthdayRowKey.currentContext!.findRenderObject() as RenderBox;
     birthdayRowBoxHeight = birthdayRowRenderBox.size.height;
   }
 
@@ -53,8 +52,14 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Customer> customersList =
-        Provider.of<CustomersProvider>(context).customersList;
+    TextStyle defTextStyle = TextStyle(
+      fontSize: 22,
+      color: kFontColor,
+    );
+
+    TextStyle defSmallTextSyle = defTextStyle.copyWith(fontSize: 14);
+
+    List<Customer> customersList = Provider.of<CustomersProvider>(context).customersList;
 
     List<Customer> filteredCustomerList = [];
 
@@ -63,7 +68,7 @@ class _MainScreenState extends State<MainScreen> {
     }
 
     ButtonStyle lightenButtonStyle = ButtonStyle(
-      backgroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
+      backgroundColor: const MaterialStatePropertyAll<Color>(Color(0xFF40403E)),
       shape: MaterialStatePropertyAll<OutlinedBorder>(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -91,7 +96,7 @@ class _MainScreenState extends State<MainScreen> {
         break;
     }
 
-    Color fontColor = const Color(0xFF595959);
+    Color fontColor = const Color(0xFFD8D9D7);
 
     return Scaffold(
       backgroundColor: kBackgroundColor,
@@ -127,21 +132,18 @@ class _MainScreenState extends State<MainScreen> {
                             );
                           },
                           style: lightenButtonStyle,
-                          child: const Column(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
                                 Icons.person_add_alt_1,
-                                color: Color(0xFF595959),
+                                color: kFontColor,
                                 size: 55,
                               ),
                               Text(
                                 'Cadastrar novo cliente',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Color(0xFF595959),
-                                ),
+                                style: defSmallTextSyle,
                                 maxLines: 2,
                               ),
                             ],
@@ -160,21 +162,18 @@ class _MainScreenState extends State<MainScreen> {
                             );
                           },
                           style: lightenButtonStyle,
-                          child: const Column(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
                                 Icons.groups,
-                                color: Color(0xFF595959),
+                                color: kFontColor,
                                 size: 55,
                               ),
                               Text(
                                 'Todos Clientes',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Color(0xFF595959),
-                                ),
+                                style: defSmallTextSyle,
                                 maxLines: 2,
                               ),
                             ],
@@ -194,22 +193,19 @@ class _MainScreenState extends State<MainScreen> {
                       );
                     },
                     style: lightenButtonStyle,
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
                           Icons.edit_note,
-                          color: Color(0xFF595959),
+                          color: kFontColor,
                           size: 60,
                         ),
                         Expanded(
                           child: Text(
                             'Mensagem da semana',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 22,
-                              color: Color(0xFF595959),
-                            ),
+                            style: defTextStyle,
                             maxLines: 2,
                           ),
                         ),
@@ -222,7 +218,7 @@ class _MainScreenState extends State<MainScreen> {
                   child: ElevatedButton(
                     style: lightenButtonStyle.copyWith(
                       backgroundColor: const MaterialStatePropertyAll<Color>(
-                        Color(0xFFE0D8CE),
+                        Color(0xFF888C8C),
                       ),
                     ),
                     onPressed: () {
@@ -240,7 +236,7 @@ class _MainScreenState extends State<MainScreen> {
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               fontSize: Platform.isIOS ? 24 : 26,
-                              color: fontColor,
+                              color: kAltFontColor,
                             ),
                             maxLines: 3,
                           ),
@@ -248,7 +244,7 @@ class _MainScreenState extends State<MainScreen> {
                         const SizedBox(width: 10),
                         Icon(
                           Icons.celebration,
-                          color: fontColor,
+                          color: kAltFontColor,
                           size: 60,
                         ),
                       ],
@@ -265,22 +261,19 @@ class _MainScreenState extends State<MainScreen> {
                       );
                     },
                     style: lightenButtonStyle,
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
                           Icons.settings,
-                          color: Color(0xFF595959),
+                          color: kFontColor,
                           size: 60,
                         ),
                         Expanded(
                           child: Text(
                             'Configurações',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 22,
-                              color: Color(0xFF595959),
-                            ),
+                            style: defTextStyle,
                             maxLines: 2,
                           ),
                         ),
@@ -309,15 +302,15 @@ class _MainScreenState extends State<MainScreen> {
           ),
           SlidingUpPanel(
             backdropEnabled: true,
+            color: const Color(0xFF40403E),
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(20),
+            ),
             minHeight: Platform.isIOS ? 120 : 100,
             maxHeight: filteredCustomerList.isNotEmpty
                 ? (birthdayRowBoxHeight + (Platform.isIOS ? 80 : 50)) +
                     (80 * filteredCustomerList.length).clamp(80, 300)
                 : (birthdayRowBoxHeight + 30) + (Platform.isIOS ? 260 : 230),
-            color: const Color(0xFFFAF8F7),
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(20),
-            ),
             panel: Stack(
               children: [
                 Padding(
@@ -328,7 +321,7 @@ class _MainScreenState extends State<MainScreen> {
                       width: 62,
                       height: 5,
                       decoration: BoxDecoration(
-                        color: const Color(0xFFD2D1D1),
+                        color: const Color(0xFF888C8C),
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
@@ -349,6 +342,7 @@ class _MainScreenState extends State<MainScreen> {
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
+                                color: kAltFontColor,
                               ),
                             ),
                             const SizedBox(width: 10),
@@ -362,8 +356,7 @@ class _MainScreenState extends State<MainScreen> {
                                 value: BirthdayOption.day,
                                 items: BirthdayOption.values
                                     .map(
-                                      (option) =>
-                                          DropdownMenuItem<BirthdayOption>(
+                                      (option) => DropdownMenuItem<BirthdayOption>(
                                         value: option,
                                         child: Text(
                                           option.text,
@@ -375,7 +368,7 @@ class _MainScreenState extends State<MainScreen> {
                                     .toList(),
                                 decoration: InputDecoration(
                                   filled: true,
-                                  fillColor: Colors.white,
+                                  fillColor: Color(0xFF888C8C),
                                   border: defaultBorder,
                                   focusedBorder: defaultBorder,
                                   enabledBorder: defaultBorder,
@@ -399,13 +392,10 @@ class _MainScreenState extends State<MainScreen> {
                                     borderRadius: BorderRadius.circular(15),
                                     child: ListView.separated(
                                       shrinkWrap: true,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 2, vertical: 5),
-                                      separatorBuilder: (_, __) =>
-                                          const SizedBox(height: 10),
+                                      padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
+                                      separatorBuilder: (_, __) => const SizedBox(height: 10),
                                       itemCount: filteredCustomerList.length,
-                                      itemBuilder: (context, index) =>
-                                          CustomerTile(
+                                      itemBuilder: (context, index) => CustomerTile(
                                         filteredCustomerList[index],
                                       ),
                                     ),
@@ -413,8 +403,7 @@ class _MainScreenState extends State<MainScreen> {
                                 ),
                               )
                             : Padding(
-                                padding: EdgeInsets.only(
-                                    top: Platform.isIOS ? 25 : 15),
+                                padding: EdgeInsets.only(top: Platform.isIOS ? 25 : 15),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -424,8 +413,7 @@ class _MainScreenState extends State<MainScreen> {
                                       size: 130,
                                     ),
                                     SizedBox(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          0.72,
+                                      width: MediaQuery.sizeOf(context).width * 0.72,
                                       child: Text(
                                         'Não há clientes aniversariantes ${_birthdayOption.emptyText}',
                                         textAlign: TextAlign.center,
