@@ -67,7 +67,11 @@ class _CustomersScreenState extends State<CustomersScreen> {
       floatingActionButton: Builder(
         builder: (context) {
           return FloatingActionButton(
-            backgroundColor: const Color(0xff886a4a),
+            backgroundColor: kBrownColor,
+            child: Icon(
+              Icons.add,
+              color: kFontColor,
+            ),
             onPressed: () async {
               createCustomerModal().then((customer) {
                 if (customer != null) {
@@ -84,10 +88,6 @@ class _CustomersScreenState extends State<CustomersScreen> {
                 }
               });
             },
-            child: const Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
           );
         },
       ),
@@ -99,8 +99,11 @@ class _CustomersScreenState extends State<CustomersScreen> {
         child: Column(
           children: [
             Material(
-              color: kWeakBrownColor,
+              color: kAltBackgroundColor,
               elevation: 2,
+              borderRadius: const BorderRadius.vertical(
+                bottom: Radius.circular(5),
+              ),
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 height: 80,

@@ -68,19 +68,11 @@ class _MainScreenState extends State<MainScreen> {
     }
 
     ButtonStyle lightenButtonStyle = ButtonStyle(
-      backgroundColor: const MaterialStatePropertyAll<Color>(Color(0xFF40403E)),
+      backgroundColor: MaterialStatePropertyAll<Color>(kAltPrimaryColor),
       shape: MaterialStatePropertyAll<OutlinedBorder>(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
-      ),
-      elevation: MaterialStateProperty.resolveWith<double>(
-        (states) {
-          if (states.contains(MaterialState.pressed)) {
-            return 0;
-          }
-          return 2;
-        },
       ),
     );
 
@@ -302,7 +294,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           SlidingUpPanel(
             backdropEnabled: true,
-            color: const Color(0xFF40403E),
+            color: kAltPrimaryColor,
             borderRadius: const BorderRadius.vertical(
               top: Radius.circular(20),
             ),
@@ -342,7 +334,7 @@ class _MainScreenState extends State<MainScreen> {
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
-                                color: kAltFontColor,
+                                color: kFontColor,
                               ),
                             ),
                             const SizedBox(width: 10),
@@ -368,7 +360,7 @@ class _MainScreenState extends State<MainScreen> {
                                     .toList(),
                                 decoration: InputDecoration(
                                   filled: true,
-                                  fillColor: Color(0xFF888C8C),
+                                  fillColor: kPrimaryColor,
                                   border: defaultBorder,
                                   focusedBorder: defaultBorder,
                                   enabledBorder: defaultBorder,

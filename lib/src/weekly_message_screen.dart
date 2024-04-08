@@ -17,9 +17,6 @@ class WeekMessageScreen extends StatelessWidget {
       backgroundColor: kBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
         centerTitle: true,
         elevation: 0,
         title: const Text(
@@ -39,16 +36,19 @@ class WeekMessageScreen extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  const Text(
+                  Text(
                     'Mensagem Semanal',
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
+                      color: kFontColor,
                     ),
                   ),
                   const SizedBox(height: 20),
                   Container(
-                    height: Platform.isIOS ? MediaQuery.sizeOf(context).height * 0.45 : MediaQuery.sizeOf(context).height * 0.5,
+                    height: Platform.isIOS
+                        ? MediaQuery.sizeOf(context).height * 0.45
+                        : MediaQuery.sizeOf(context).height * 0.5,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border(
@@ -89,7 +89,7 @@ class WeekMessageScreen extends StatelessWidget {
                           ),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: kCreamColor,
+                              color: kAltBackgroundColor,
                             ),
                             padding: const EdgeInsets.symmetric(
                               vertical: 5,
@@ -97,13 +97,14 @@ class WeekMessageScreen extends StatelessWidget {
                             ),
                             child: ElevatedButton(
                               style: ButtonStyle(
-                                backgroundColor: MaterialStatePropertyAll<Color>(Colors.grey.shade600),
+                                backgroundColor: MaterialStatePropertyAll<Color>(kAltPrimaryColor),
                                 foregroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
-                                textStyle: const MaterialStatePropertyAll<TextStyle>(
-                                  TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                                ),
-                                elevation: MaterialStateProperty.resolveWith<double>(
-                                  (states) => states.contains(MaterialState.pressed) ? 0 : 2,
+                                textStyle: MaterialStatePropertyAll<TextStyle>(
+                                  TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    color: kFontColor,
+                                  ),
                                 ),
                                 shape: MaterialStatePropertyAll<OutlinedBorder>(
                                   RoundedRectangleBorder(
@@ -126,23 +127,29 @@ class WeekMessageScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [kBottomBoxShadow],
-                  color: Colors.white,
+                  color: kAltBackgroundColor,
                 ),
                 padding: const EdgeInsets.only(right: 3),
                 height: 80,
                 child: Row(
                   children: [
-                    const Expanded(
+                    Expanded(
                       flex: 3,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             'Clientes selecionados',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: kAltFontColor,
+                            ),
                           ),
-                          SizedBox(height: 5),
-                          Text('Todos selecionados'),
+                          const SizedBox(height: 5),
+                          Text(
+                            'Todos selecionados',
+                            style: TextStyle(color: kFontColor),
+                          ),
                         ],
                       ),
                     ),
@@ -152,16 +159,13 @@ class WeekMessageScreen extends StatelessWidget {
                         height: 75,
                         child: ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll<Color>(kWeakBrownColor),
+                            backgroundColor: MaterialStatePropertyAll<Color>(kBrownColor),
                             foregroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
                             textStyle: const MaterialStatePropertyAll<TextStyle>(
                               TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                               ),
-                            ),
-                            elevation: MaterialStateProperty.resolveWith<double>(
-                              (states) => states.contains(MaterialState.pressed) ? 0 : 2,
                             ),
                             shape: MaterialStatePropertyAll<OutlinedBorder>(
                               RoundedRectangleBorder(
@@ -170,7 +174,10 @@ class WeekMessageScreen extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {},
-                          child: const Text('Editar'),
+                          child: Text(
+                            'Editar',
+                            style: TextStyle(color: kFontColor),
+                          ),
                         ),
                       ),
                     ),
@@ -184,16 +191,10 @@ class WeekMessageScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ButtonStyle(
-                    backgroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
-                    foregroundColor: MaterialStatePropertyAll<Color>(kWeakBrownColor),
+                    backgroundColor: MaterialStatePropertyAll<Color>(kBrownColor),
+                    foregroundColor: MaterialStatePropertyAll<Color>(kFontColor),
                     textStyle: const MaterialStatePropertyAll<TextStyle>(
                       TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    elevation: MaterialStateProperty.resolveWith<double>(
-                      (states) => states.contains(MaterialState.pressed) ? 0 : 2,
-                    ),
-                    overlayColor: const MaterialStatePropertyAll<Color>(
-                      Colors.black12,
                     ),
                     shape: MaterialStatePropertyAll<OutlinedBorder>(
                       RoundedRectangleBorder(

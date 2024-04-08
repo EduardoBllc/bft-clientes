@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
+import 'package:bft_clientes/src/constants.dart';
 import 'package:flutter/material.dart';
+
 import '../../models/customer.dart';
-import 'customer_modal.dart';
 import 'customer_message_modal.dart';
+import 'customer_modal.dart';
 
 class CustomerTile extends StatelessWidget {
   const CustomerTile(
@@ -29,7 +30,7 @@ class CustomerTile extends StatelessWidget {
               );
             },
             child: Material(
-              color: Colors.white,
+              color: kPrimaryColor,
               borderRadius: BorderRadius.circular(10),
               elevation: 3,
               child: Padding(
@@ -48,7 +49,7 @@ class CustomerTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 5),
             child: Material(
-              color: Colors.white,
+              color: kPrimaryColor,
               borderRadius: BorderRadius.circular(10),
               elevation: 3,
               child: Padding(

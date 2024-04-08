@@ -44,14 +44,6 @@ class MainScreenButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
           ),
         ),
-        elevation: MaterialStateProperty.resolveWith<double>(
-          (states) {
-            if (states.contains(MaterialState.pressed)) {
-              return 0;
-            }
-            return 2;
-          },
-        ),
       ),
       onPressed: onPressed,
       child: textOnBottom

@@ -1,8 +1,10 @@
+import 'dart:io' show Platform;
+
 import 'package:bft_clientes/controllers/customers_provider.dart';
 import 'package:bft_clientes/controllers/messages_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'dart:io' show Platform;
+
 import '../models/customer.dart';
 import 'components/customer_tile.dart';
 import 'constants.dart';
@@ -15,8 +17,9 @@ class DailyMessagesScreen extends StatelessWidget {
     List<Customer> todaysBirthdayCustomerList =
         Provider.of<CustomersProvider>(context).customersList.where((customer) => customer.todaysBirthday).toList();
 
-    List<Customer> customMessageCustomerList =
-        todaysBirthdayCustomerList.where((customer) => customer.customMessage != null && customer.customMessage!.isNotEmpty).toList();
+    List<Customer> customMessageCustomerList = todaysBirthdayCustomerList
+        .where((customer) => customer.customMessage != null && customer.customMessage!.isNotEmpty)
+        .toList();
 
     String defaultMessage = Provider.of<MessagesProvider>(context, listen: false).defaultBirthdayMessage;
 
@@ -55,7 +58,7 @@ class DailyMessagesScreen extends StatelessWidget {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
+                          color: kAltBackgroundColor,
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [kBottomBoxShadow],
                         ),
@@ -66,7 +69,7 @@ class DailyMessagesScreen extends StatelessWidget {
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                      color: kWeakBrownColor,
+                                      color: kBrownColor,
                                       boxShadow: [kBottomBoxShadow],
                                       borderRadius: const BorderRadius.vertical(
                                         top: Radius.circular(7),
@@ -120,7 +123,7 @@ class DailyMessagesScreen extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.only(top: 50),
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
+                          color: kAltBackgroundColor,
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [kBottomBoxShadow],
                         ),
@@ -169,17 +172,21 @@ class DailyMessagesScreen extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       Icons.no_accounts_outlined,
                                       size: 130,
+                                      color: kFontColor,
                                     ),
                                     SizedBox(
                                       width: MediaQuery.sizeOf(context).width * 0.68,
-                                      child: const Text(
+                                      child: Text(
                                         'Ainda não há aniversariantes de hoje'
                                         ' com mensagem personalidzada',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(fontSize: 20),
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: kFontColor,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -203,19 +210,19 @@ class DailyMessagesScreen extends StatelessWidget {
                                 horizontal: 10,
                               ),
                               decoration: BoxDecoration(
-                                color: Colors.grey.shade500,
+                                color: kAltBackgroundColor,
                                 borderRadius: const BorderRadius.vertical(
                                   top: Radius.circular(10),
                                 ),
                                 boxShadow: [kBottomBoxShadow],
                               ),
-                              child: const Text(
+                              child: Text(
                                 'Mensagem que será enviada aos não personalizados:',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.white,
+                                  color: kAltFontColor,
                                 ),
                               ),
                             ),
@@ -252,7 +259,7 @@ class DailyMessagesScreen extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: kAltPrimaryColor,
                 boxShadow: [kTopBoxShadow],
               ),
               padding: Platform.isIOS ? const EdgeInsets.only(top: 15) : const EdgeInsets.symmetric(vertical: 15),
@@ -266,16 +273,10 @@ class DailyMessagesScreen extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {},
                         style: ButtonStyle(
-                          backgroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
-                          foregroundColor: MaterialStatePropertyAll<Color>(kWeakBrownColor),
+                          backgroundColor: MaterialStatePropertyAll<Color>(kBrownColor),
+                          foregroundColor: MaterialStatePropertyAll<Color>(kFontColor),
                           textStyle: const MaterialStatePropertyAll<TextStyle>(
                             TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          elevation: MaterialStateProperty.resolveWith<double>(
-                            (states) => states.contains(MaterialState.pressed) ? 0 : 2,
-                          ),
-                          overlayColor: const MaterialStatePropertyAll<Color>(
-                            Colors.black12,
                           ),
                           shape: MaterialStatePropertyAll<OutlinedBorder>(
                             RoundedRectangleBorder(

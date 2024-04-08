@@ -3,6 +3,7 @@ import 'package:bft_clientes/src/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
+
 import 'controllers/customers_provider.dart';
 
 void main() {
@@ -25,6 +26,14 @@ class CustomersManager extends StatelessWidget {
           appBarTheme: const AppBarTheme(
             iconTheme: IconThemeData(
               color: Colors.white,
+            ),
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+              overlayColor: const MaterialStatePropertyAll<Color>(Colors.white10),
+              elevation: MaterialStateProperty.resolveWith<double>(
+                (states) => states.contains(MaterialState.pressed) ? 0 : 3,
+              ),
             ),
           ),
         ),

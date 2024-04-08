@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 Color kBackgroundColor = const Color(0xFF0B0C0D);
+Color kAltBackgroundColor = const Color(0xFF888C8C);
 
-Color kCreamColor = const Color(0xff888C8C);
+Color kPrimaryColor = const Color(0xFFD8D9D7);
+Color kAltPrimaryColor = const Color(0xFF40403E);
 
-Color kWeakBrownColor = const Color(0xffad906e);
+Color kFontColor = const Color(0xFFD8D9D7);
+Color kAltFontColor = const Color(0xFFF2F2F2);
 
-Offset kBottomOffset = const Offset(0, 2);
-Offset kTopOffset = const Offset(0, -2);
+Color kWeakBrownColor = const Color(0xFFAD906E);
+Color kBrownColor = const Color(0xFF5A4C34);
 
 Color kWeakShadowColor = const Color(0xff000000).withOpacity(0.1);
 
-Color kFontColor = const Color(0xFFF2F2F2);
-Color kAltFontColor = const Color(0xFFD8D9D7);
+Offset kBottomOffset = const Offset(0, 2);
+Offset kTopOffset = const Offset(0, -2);
 
 BoxShadow kBottomBoxShadow = BoxShadow(
   offset: kBottomOffset,

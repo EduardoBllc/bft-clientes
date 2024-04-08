@@ -116,7 +116,8 @@ class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModa
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    Provider.of<CustomersProvider>(context, listen: false).changeCustomerMessage(widget.customer, messageController.text);
+                    Provider.of<CustomersProvider>(context, listen: false)
+                        .changeCustomerMessage(widget.customer, messageController.text);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         dismissDirection: DismissDirection.horizontal,
@@ -138,9 +139,6 @@ class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModa
                     ),
                     textStyle: const MaterialStatePropertyAll<TextStyle>(
                       TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    elevation: MaterialStateProperty.resolveWith<double>(
-                      (states) => states.contains(MaterialState.pressed) ? 0 : 2,
                     ),
                     overlayColor: const MaterialStatePropertyAll<Color>(
                       Colors.black12,
