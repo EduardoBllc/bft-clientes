@@ -2,9 +2,8 @@ import 'package:bft_clientes/controllers/customers_provider.dart';
 import 'package:bft_clientes/src/components/standard_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../models/customer.dart';
-import '../constants.dart';
+import '../../constants.dart';
 
 class MessageEditingCustomerModal extends StatefulWidget {
   const MessageEditingCustomerModal(

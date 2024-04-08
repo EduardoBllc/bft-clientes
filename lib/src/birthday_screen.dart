@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../models/customer.dart';
 import 'components/customer_tile.dart';
-import 'constants.dart';
+import '../constants.dart';
 
 class DailyMessagesScreen extends StatelessWidget {
   const DailyMessagesScreen({super.key});

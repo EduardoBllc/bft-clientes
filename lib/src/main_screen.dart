@@ -10,11 +10,10 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
 import '../controllers/customers_provider.dart';
 import '../models/birthday_options.dart';
 import '../models/customer.dart';
-import 'constants.dart';
+import '../constants.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -300,8 +299,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
             minHeight: Platform.isIOS ? 120 : 100,
             maxHeight: filteredCustomerList.isNotEmpty
-                ? (birthdayRowBoxHeight + (Platform.isIOS ? 80 : 50)) +
-                    (80 * filteredCustomerList.length).clamp(80, 300)
+                ? (birthdayRowBoxHeight + (Platform.isIOS ? 80 : 50)) + (80 * filteredCustomerList.length).clamp(80, 300)
                 : (birthdayRowBoxHeight + 30) + (Platform.isIOS ? 260 : 230),
             panel: Stack(
               children: [
