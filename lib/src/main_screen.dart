@@ -297,7 +297,7 @@ class _MainScreenState extends State<MainScreen> {
             borderRadius: const BorderRadius.vertical(
               top: Radius.circular(20),
             ),
-            minHeight: Platform.isIOS ? 120 : 100,
+            minHeight: Platform.isIOS ? 110 : 100,
             maxHeight: filteredCustomerList.isNotEmpty
                 ? (birthdayRowBoxHeight + (Platform.isIOS ? 80 : 50)) + (80 * filteredCustomerList.length).clamp(80, 300)
                 : (birthdayRowBoxHeight + 30) + (Platform.isIOS ? 260 : 230),
@@ -337,11 +337,11 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                             const SizedBox(width: 10),
                             Container(
+                              width: MediaQuery.sizeOf(context).width * 0.43,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow: [kBottomBoxShadow],
                               ),
-                              width: MediaQuery.sizeOf(context).width * 0.43,
                               child: DropdownButtonFormField<BirthdayOption>(
                                 value: BirthdayOption.day,
                                 items: BirthdayOption.values
@@ -377,7 +377,7 @@ class _MainScreenState extends State<MainScreen> {
                         filteredCustomerList.isNotEmpty
                             ? Expanded(
                                 child: Padding(
-                                  padding: const EdgeInsets.only(top: 15),
+                                  padding: EdgeInsets.only(top: Platform.isIOS ? 30 : 15),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(15),
                                     child: ListView.separated(
