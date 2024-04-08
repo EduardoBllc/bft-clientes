@@ -10,11 +10,10 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
 import '../controllers/customers_provider.dart';
 import '../models/birthday_options.dart';
 import '../models/customer.dart';
-import 'constants.dart';
+import '../constants.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -38,8 +37,7 @@ class _MainScreenState extends State<MainScreen> {
   );
 
   void setSlidingPanelHeight() {
-    birthdayRowRenderBox =
-        birthdayRowKey.currentContext!.findRenderObject() as RenderBox;
+    birthdayRowRenderBox = birthdayRowKey.currentContext!.findRenderObject() as RenderBox;
     birthdayRowBoxHeight = birthdayRowRenderBox.size.height;
   }
 
@@ -53,8 +51,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Customer> customersList =
-        Provider.of<CustomersProvider>(context).customersList;
+    List<Customer> customersList = Provider.of<CustomersProvider>(context).customersList;
 
     List<Customer> filteredCustomerList = [];
 
@@ -311,8 +308,7 @@ class _MainScreenState extends State<MainScreen> {
             backdropEnabled: true,
             minHeight: Platform.isIOS ? 120 : 100,
             maxHeight: filteredCustomerList.isNotEmpty
-                ? (birthdayRowBoxHeight + (Platform.isIOS ? 80 : 50)) +
-                    (80 * filteredCustomerList.length).clamp(80, 300)
+                ? (birthdayRowBoxHeight + (Platform.isIOS ? 80 : 50)) + (80 * filteredCustomerList.length).clamp(80, 300)
                 : (birthdayRowBoxHeight + 30) + (Platform.isIOS ? 260 : 230),
             color: const Color(0xFFFAF8F7),
             borderRadius: const BorderRadius.vertical(
@@ -362,8 +358,7 @@ class _MainScreenState extends State<MainScreen> {
                                 value: BirthdayOption.day,
                                 items: BirthdayOption.values
                                     .map(
-                                      (option) =>
-                                          DropdownMenuItem<BirthdayOption>(
+                                      (option) => DropdownMenuItem<BirthdayOption>(
                                         value: option,
                                         child: Text(
                                           option.text,
@@ -399,13 +394,10 @@ class _MainScreenState extends State<MainScreen> {
                                     borderRadius: BorderRadius.circular(15),
                                     child: ListView.separated(
                                       shrinkWrap: true,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 2, vertical: 5),
-                                      separatorBuilder: (_, __) =>
-                                          const SizedBox(height: 10),
+                                      padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
+                                      separatorBuilder: (_, __) => const SizedBox(height: 10),
                                       itemCount: filteredCustomerList.length,
-                                      itemBuilder: (context, index) =>
-                                          CustomerTile(
+                                      itemBuilder: (context, index) => CustomerTile(
                                         filteredCustomerList[index],
                                       ),
                                     ),
@@ -413,8 +405,7 @@ class _MainScreenState extends State<MainScreen> {
                                 ),
                               )
                             : Padding(
-                                padding: EdgeInsets.only(
-                                    top: Platform.isIOS ? 25 : 15),
+                                padding: EdgeInsets.only(top: Platform.isIOS ? 25 : 15),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -424,8 +415,7 @@ class _MainScreenState extends State<MainScreen> {
                                       size: 130,
                                     ),
                                     SizedBox(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          0.72,
+                                      width: MediaQuery.sizeOf(context).width * 0.72,
                                       child: Text(
                                         'Não há clientes aniversariantes ${_birthdayOption.emptyText}',
                                         textAlign: TextAlign.center,

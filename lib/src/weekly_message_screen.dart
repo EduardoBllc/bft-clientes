@@ -1,10 +1,8 @@
 import 'dart:io' show Platform;
-
 import 'package:bft_clientes/controllers/messages_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'constants.dart';
+import '../constants.dart';
 
 class WeekMessageScreen extends StatelessWidget {
   const WeekMessageScreen({super.key});
