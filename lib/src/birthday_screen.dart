@@ -24,7 +24,7 @@ class DailyMessagesScreen extends StatelessWidget {
     String defaultMessage = Provider.of<MessagesProvider>(context, listen: false).defaultBirthdayMessage;
 
     return Scaffold(
-      backgroundColor: kBackgroundColor,
+      backgroundColor: appTheme.backgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.black,
         iconTheme: const IconThemeData(
@@ -58,7 +58,7 @@ class DailyMessagesScreen extends StatelessWidget {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          color: kAltBackgroundColor,
+                          color: appTheme.altSecondaryColor,
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [kBottomBoxShadow],
                         ),
@@ -69,25 +69,26 @@ class DailyMessagesScreen extends StatelessWidget {
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                      color: kBrownColor,
+                                      color: appTheme.primaryColor,
                                       boxShadow: [kBottomBoxShadow],
                                       borderRadius: const BorderRadius.vertical(
                                         top: Radius.circular(7),
                                       ),
                                     ),
                                     padding: const EdgeInsets.symmetric(vertical: 10),
-                                    child: const Text(
+                                    child: Text(
                                       'Aniversariantes de hoje',
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.white,
+                                        color: appTheme.fontColor,
                                       ),
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
                                   Expanded(
                                     child: ListView.separated(
+                                      shrinkWrap: true,
                                       padding: const EdgeInsets.all(10),
                                       separatorBuilder: (_, __) => const SizedBox(height: 10),
                                       itemCount: todaysBirthdayCustomerList.length,
@@ -123,7 +124,7 @@ class DailyMessagesScreen extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.only(top: 50),
                         decoration: BoxDecoration(
-                          color: kAltBackgroundColor,
+                          color: appTheme.altSecondaryColor,
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [kBottomBoxShadow],
                         ),
@@ -175,7 +176,7 @@ class DailyMessagesScreen extends StatelessWidget {
                                     Icon(
                                       Icons.no_accounts_outlined,
                                       size: 130,
-                                      color: kFontColor,
+                                      color: appTheme.fontColor,
                                     ),
                                     SizedBox(
                                       width: MediaQuery.sizeOf(context).width * 0.68,
@@ -185,7 +186,7 @@ class DailyMessagesScreen extends StatelessWidget {
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 20,
-                                          color: kFontColor,
+                                          color: appTheme.fontColor,
                                         ),
                                       ),
                                     ),
@@ -199,7 +200,7 @@ class DailyMessagesScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [kBottomBoxShadow],
-                          color: Colors.white,
+                          color: appTheme.altBackgroundColor,
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -210,7 +211,7 @@ class DailyMessagesScreen extends StatelessWidget {
                                 horizontal: 10,
                               ),
                               decoration: BoxDecoration(
-                                color: kAltBackgroundColor,
+                                color: appTheme.altSecondaryColor,
                                 borderRadius: const BorderRadius.vertical(
                                   top: Radius.circular(10),
                                 ),
@@ -222,7 +223,7 @@ class DailyMessagesScreen extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
-                                  color: kAltFontColor,
+                                  color: appTheme.fontColor,
                                 ),
                               ),
                             ),
@@ -259,7 +260,7 @@ class DailyMessagesScreen extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                color: kAltPrimaryColor,
+                color: appTheme.altSecondaryColor,
                 boxShadow: [kTopBoxShadow],
               ),
               padding: Platform.isIOS ? const EdgeInsets.only(top: 15) : const EdgeInsets.symmetric(vertical: 15),
@@ -272,18 +273,7 @@ class DailyMessagesScreen extends StatelessWidget {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {},
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(kBrownColor),
-                          foregroundColor: MaterialStatePropertyAll<Color>(kFontColor),
-                          textStyle: const MaterialStatePropertyAll<TextStyle>(
-                            TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          shape: MaterialStatePropertyAll<OutlinedBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
+                        style: kBrownButtonStyle,
                         child: const Text(
                           'Confirmar Envio',
                           style: TextStyle(

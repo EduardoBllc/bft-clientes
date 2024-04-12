@@ -30,7 +30,7 @@ class CustomerTile extends StatelessWidget {
               );
             },
             child: Material(
-              color: kPrimaryColor,
+              color: appTheme.secondaryColor,
               borderRadius: BorderRadius.circular(10),
               elevation: 3,
               child: Padding(
@@ -49,7 +49,7 @@ class CustomerTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 5),
             child: Material(
-              color: kPrimaryColor,
+              color: appTheme.secondaryColor,
               borderRadius: BorderRadius.circular(10),
               elevation: 3,
               child: Padding(

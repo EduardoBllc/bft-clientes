@@ -54,7 +54,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     TextStyle defTextStyle = TextStyle(
       fontSize: 22,
-      color: kFontColor,
+      color: appTheme.secondaryColor,
     );
 
     TextStyle defSmallTextSyle = defTextStyle.copyWith(fontSize: 14);
@@ -68,7 +68,7 @@ class _MainScreenState extends State<MainScreen> {
     }
 
     ButtonStyle lightenButtonStyle = ButtonStyle(
-      backgroundColor: MaterialStatePropertyAll<Color>(kAltPrimaryColor),
+      backgroundColor: MaterialStatePropertyAll<Color>(appTheme.altSecondaryColor),
       shape: MaterialStatePropertyAll<OutlinedBorder>(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -91,7 +91,7 @@ class _MainScreenState extends State<MainScreen> {
     Color fontColor = const Color(0xFFD8D9D7);
 
     return Scaffold(
-      backgroundColor: kBackgroundColor,
+      backgroundColor: appTheme.backgroundColor,
       appBar: kDefaultAppBar,
       body: Stack(
         fit: StackFit.expand,
@@ -129,7 +129,7 @@ class _MainScreenState extends State<MainScreen> {
                             children: [
                               Icon(
                                 Icons.person_add_alt_1,
-                                color: kFontColor,
+                                color: appTheme.secondaryColor,
                                 size: 55,
                               ),
                               Text(
@@ -159,7 +159,7 @@ class _MainScreenState extends State<MainScreen> {
                             children: [
                               Icon(
                                 Icons.groups,
-                                color: kFontColor,
+                                color: appTheme.secondaryColor,
                                 size: 55,
                               ),
                               Text(
@@ -190,7 +190,7 @@ class _MainScreenState extends State<MainScreen> {
                       children: [
                         Icon(
                           Icons.edit_note,
-                          color: kFontColor,
+                          color: appTheme.secondaryColor,
                           size: 60,
                         ),
                         Expanded(
@@ -228,7 +228,7 @@ class _MainScreenState extends State<MainScreen> {
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               fontSize: Platform.isIOS ? 24 : 26,
-                              color: kAltFontColor,
+                              color: appTheme.fontColor,
                             ),
                             maxLines: 3,
                           ),
@@ -236,7 +236,7 @@ class _MainScreenState extends State<MainScreen> {
                         const SizedBox(width: 10),
                         Icon(
                           Icons.celebration,
-                          color: kAltFontColor,
+                          color: appTheme.secondaryColor,
                           size: 60,
                         ),
                       ],
@@ -258,7 +258,7 @@ class _MainScreenState extends State<MainScreen> {
                       children: [
                         Icon(
                           Icons.settings,
-                          color: kFontColor,
+                          color: appTheme.secondaryColor,
                           size: 60,
                         ),
                         Expanded(
@@ -294,7 +294,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           SlidingUpPanel(
             backdropEnabled: true,
-            color: kAltPrimaryColor,
+            color: appTheme.altSecondaryColor,
             borderRadius: const BorderRadius.vertical(
               top: Radius.circular(20),
             ),
@@ -334,7 +334,7 @@ class _MainScreenState extends State<MainScreen> {
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
-                                color: kFontColor,
+                                color: appTheme.fontColor,
                               ),
                             ),
                             const SizedBox(width: 10),
@@ -360,7 +360,7 @@ class _MainScreenState extends State<MainScreen> {
                                     .toList(),
                                 decoration: InputDecoration(
                                   filled: true,
-                                  fillColor: kPrimaryColor,
+                                  fillColor: appTheme.secondaryColor,
                                   border: defaultBorder,
                                   focusedBorder: defaultBorder,
                                   enabledBorder: defaultBorder,

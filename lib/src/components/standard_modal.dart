@@ -1,3 +1,4 @@
+import 'package:bft_clientes/src/constants.dart';
 import 'package:flutter/material.dart';
 
 class StandardModal extends StatelessWidget {
@@ -5,11 +6,11 @@ class StandardModal extends StatelessWidget {
     super.key,
     required this.body,
     this.maxHeight,
-    this.topRightButton,
+    this.topRightButtons,
   });
 
   final Widget body;
-  final Widget? topRightButton;
+  final List<Widget>? topRightButtons;
   final double? maxHeight;
 
   @override
@@ -21,9 +22,9 @@ class StandardModal extends StatelessWidget {
         maxHeight: maxHeight ?? MediaQuery.sizeOf(context).height * 0.4,
       ),
       child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(
+        decoration: BoxDecoration(
+          color: appTheme.altSecondaryColor,
+          borderRadius: const BorderRadius.vertical(
             top: Radius.circular(18),
           ),
         ),
@@ -44,12 +45,15 @@ class StandardModal extends StatelessWidget {
                 ),
               ),
             ),
-            if (topRightButton != null)
+            if (topRightButtons != null)
               Padding(
                 padding: const EdgeInsets.only(top: 20, right: 20),
                 child: Align(
                   alignment: Alignment.topRight,
-                  child: topRightButton,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: topRightButtons!,
+                  ),
                 ),
               ),
             Padding(

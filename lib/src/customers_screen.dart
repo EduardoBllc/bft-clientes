@@ -62,15 +62,15 @@ class _CustomersScreenState extends State<CustomersScreen> {
     filteredCustomersList ??= List.from(customersList);
 
     return Scaffold(
-      backgroundColor: kBackgroundColor,
+      backgroundColor: appTheme.backgroundColor,
       appBar: kDefaultAppBar,
       floatingActionButton: Builder(
         builder: (context) {
           return FloatingActionButton(
-            backgroundColor: kBrownColor,
+            backgroundColor: appTheme.primaryColor,
             child: Icon(
               Icons.add,
-              color: kFontColor,
+              color: appTheme.fontColor,
             ),
             onPressed: () async {
               createCustomerModal().then((customer) {
@@ -99,7 +99,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
         child: Column(
           children: [
             Material(
-              color: kAltBackgroundColor,
+              color: appTheme.altBackgroundColor,
               elevation: 2,
               borderRadius: const BorderRadius.vertical(
                 bottom: Radius.circular(5),

@@ -1,7 +1,9 @@
 import 'package:bft_clientes/src/components/standard_modal.dart';
+import 'package:bft_clientes/src/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
 import '../../models/customer.dart';
 
 class CreateCustomerModal extends StatefulWidget {
@@ -28,7 +30,7 @@ class _CreateCustomerModalState extends State<CreateCustomerModal> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const SizedBox(
+            SizedBox(
               height: 80,
               child: Center(
                 child: Text(
@@ -36,6 +38,7 @@ class _CreateCustomerModalState extends State<CreateCustomerModal> {
                   style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
+                    color: appTheme.fontColor,
                   ),
                 ),
               ),
@@ -47,10 +50,29 @@ class _CreateCustomerModalState extends State<CreateCustomerModal> {
                   SizedBox(
                     width: MediaQuery.sizeOf(context).width * 0.8,
                     child: TextFormField(
+                      cursorColor: appTheme.fontColor,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.person),
-                        hintText: 'Nome',
+                      style: TextStyle(
+                        color: appTheme.fontColor,
+                      ),
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: appTheme.fontColor,
+                        ),
+                        labelText: 'Nome',
+                        labelStyle: TextStyle(
+                          color: appTheme.fontColor,
+                        ),
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: appTheme.fontColor),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: appTheme.fontColor, width: 2),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: appTheme.secondaryFontColor),
+                        ),
                       ),
                       onChanged: (value) {
                         name = value;
@@ -67,9 +89,28 @@ class _CreateCustomerModalState extends State<CreateCustomerModal> {
                     width: MediaQuery.sizeOf(context).width * 0.8,
                     child: TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
+                      cursorColor: appTheme.fontColor,
+                      style: TextStyle(
+                        color: appTheme.fontColor,
+                      ),
                       decoration: InputDecoration(
-                        prefixIcon: Icon(MdiIcons.whatsapp),
-                        hintText: 'Whatsapp',
+                        prefixIcon: Icon(
+                          MdiIcons.whatsapp,
+                          color: appTheme.fontColor,
+                        ),
+                        labelText: 'Whatsapp',
+                        labelStyle: TextStyle(
+                          color: appTheme.fontColor,
+                        ),
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: appTheme.fontColor),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: appTheme.fontColor, width: 2),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: appTheme.secondaryFontColor),
+                        ),
                       ),
                       onChanged: (value) {
                         whatsapp = value;
@@ -86,22 +127,39 @@ class _CreateCustomerModalState extends State<CreateCustomerModal> {
                     width: MediaQuery.sizeOf(context).width * 0.8,
                     child: TextFormField(
                       readOnly: true,
+                      cursorColor: appTheme.fontColor,
                       controller: birthdateController,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.celebration),
-                        hintText: 'Data de nascimento',
+                      style: TextStyle(
+                        color: appTheme.fontColor,
+                      ),
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.celebration,
+                          color: appTheme.fontColor,
+                        ),
+                        labelText: 'Data de nascimento',
+                        labelStyle: TextStyle(
+                          color: appTheme.fontColor,
+                        ),
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: appTheme.fontColor),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: appTheme.fontColor, width: 2),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: appTheme.secondaryFontColor),
+                        ),
                       ),
                       onTap: () async {
                         await showDatePicker(
                           context: context,
-                          firstDate: DateTime.now()
-                              .subtract(const Duration(days: 36500)),
+                          firstDate: DateTime.now().subtract(const Duration(days: 36500)),
                           lastDate: DateTime.now(),
                         ).then(
                           (value) {
                             if (value != null) {
-                              birthdateController.text =
-                                  DateFormat('dd/MM/yyyy').format(value);
+                              birthdateController.text = DateFormat('dd/MM/yyyy').format(value);
                               birthdate = value;
                             }
                           },
@@ -118,16 +176,7 @@ class _CreateCustomerModalState extends State<CreateCustomerModal> {
                   SizedBox(
                     width: 200,
                     child: ElevatedButton(
-                      style: ButtonStyle(
-                        elevation:
-                            MaterialStateProperty.resolveWith<double>((states) {
-                          if (states.contains(MaterialState.pressed)) {
-                            return 2;
-                          } else {
-                            return 4;
-                          }
-                        }),
-                      ),
+                      style: kBrownButtonStyle,
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
                           Navigator.pop(
@@ -142,7 +191,6 @@ class _CreateCustomerModalState extends State<CreateCustomerModal> {
                       },
                       child: const Text(
                         'Cadastrar',
-                        style: TextStyle(color: Colors.black87),
                       ),
                     ),
                   ),

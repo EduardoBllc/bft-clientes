@@ -14,7 +14,7 @@ class WeekMessageScreen extends StatelessWidget {
     String providerMessage = Provider.of<MessagesProvider>(context, listen: false).weeklyMessage;
 
     return Scaffold(
-      backgroundColor: kBackgroundColor,
+      backgroundColor: appTheme.backgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.black,
         centerTitle: true,
@@ -41,7 +41,7 @@ class WeekMessageScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: kFontColor,
+                      color: appTheme.fontColor,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -50,12 +50,15 @@ class WeekMessageScreen extends StatelessWidget {
                         ? MediaQuery.sizeOf(context).height * 0.45
                         : MediaQuery.sizeOf(context).height * 0.5,
                     decoration: BoxDecoration(
+                      boxShadow: [kBottomBoxShadow],
+                      color: appTheme.altBackgroundColor,
                       borderRadius: BorderRadius.circular(10),
                       border: Border(
-                        top: BorderSide(color: Colors.grey.shade700, width: 4),
+                        top: BorderSide(
+                          color: appTheme.altSecondaryColor,
+                          width: 4,
+                        ),
                       ),
-                      boxShadow: [kBottomBoxShadow],
-                      color: Colors.white,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -71,13 +74,17 @@ class WeekMessageScreen extends StatelessWidget {
                               initialValue: providerMessage,
                               expands: true,
                               maxLines: null,
+                              cursorColor: appTheme.fontColor,
+                              style: TextStyle(
+                                color: appTheme.fontColor,
+                              ),
                               decoration: InputDecoration(
                                 filled: false,
                                 border: InputBorder.none,
                                 hintText: 'Digite aqui a mensagem que será enviada',
                                 hintMaxLines: 2,
                                 hintStyle: TextStyle(
-                                  color: Colors.grey.shade500,
+                                  color: appTheme.secondaryFontColor,
                                 ),
                               ),
                             ),
@@ -89,29 +96,14 @@ class WeekMessageScreen extends StatelessWidget {
                           ),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: kAltBackgroundColor,
+                              color: appTheme.altSecondaryColor,
                             ),
                             padding: const EdgeInsets.symmetric(
                               vertical: 5,
                               horizontal: 40,
                             ),
                             child: ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStatePropertyAll<Color>(kAltPrimaryColor),
-                                foregroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
-                                textStyle: MaterialStatePropertyAll<TextStyle>(
-                                  TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                    color: kFontColor,
-                                  ),
-                                ),
-                                shape: MaterialStatePropertyAll<OutlinedBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                ),
-                              ),
+                              style: greyButtonStyle,
                               onPressed: () {},
                               child: const Text('Repetir a Anterior'),
                             ),
@@ -127,7 +119,7 @@ class WeekMessageScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [kBottomBoxShadow],
-                  color: kAltBackgroundColor,
+                  color: appTheme.altSecondaryColor,
                 ),
                 padding: const EdgeInsets.only(right: 3),
                 height: 80,
@@ -142,13 +134,13 @@ class WeekMessageScreen extends StatelessWidget {
                             'Clientes selecionados',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: kAltFontColor,
+                              color: appTheme.fontColor,
                             ),
                           ),
                           const SizedBox(height: 5),
                           Text(
                             'Todos selecionados',
-                            style: TextStyle(color: kFontColor),
+                            style: TextStyle(color: appTheme.fontColor),
                           ),
                         ],
                       ),
@@ -158,25 +150,11 @@ class WeekMessageScreen extends StatelessWidget {
                       child: SizedBox(
                         height: 75,
                         child: ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll<Color>(kBrownColor),
-                            foregroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
-                            textStyle: const MaterialStatePropertyAll<TextStyle>(
-                              TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                            shape: MaterialStatePropertyAll<OutlinedBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                          ),
+                          style: kBrownButtonStyle,
                           onPressed: () {},
                           child: Text(
                             'Editar',
-                            style: TextStyle(color: kFontColor),
+                            style: TextStyle(color: appTheme.secondaryColor),
                           ),
                         ),
                       ),
@@ -190,18 +168,7 @@ class WeekMessageScreen extends StatelessWidget {
                 height: 70,
                 child: ElevatedButton(
                   onPressed: () {},
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll<Color>(kBrownColor),
-                    foregroundColor: MaterialStatePropertyAll<Color>(kFontColor),
-                    textStyle: const MaterialStatePropertyAll<TextStyle>(
-                      TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    shape: MaterialStatePropertyAll<OutlinedBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
+                  style: kBrownButtonStyle,
                   child: const Text(
                     'Confirmar Envio',
                     style: TextStyle(

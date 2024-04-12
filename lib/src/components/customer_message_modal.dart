@@ -20,6 +20,7 @@ class MessageEditingCustomerModal extends StatefulWidget {
 
 class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModal> {
   TextEditingController messageController = TextEditingController();
+  MaterialStatesController controller = MaterialStatesController({MaterialState.disabled});
 
   @override
   void initState() {
@@ -38,28 +39,26 @@ class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModa
         FocusScope.of(context).unfocus();
       },
       child: StandardModal(
-        maxHeight: MediaQuery.sizeOf(context).height * 0.7,
+        maxHeight: MediaQuery.sizeOf(context).height * 0.5,
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                'assets/images/avatar_default.png',
-                height: 150,
-                width: 150,
-                fit: BoxFit.cover,
-              ),
               Text(
                 widget.customer.name,
-                style: const TextStyle(fontSize: 30),
+                style: TextStyle(
+                  fontSize: 30,
+                  color: appTheme.fontColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 20),
               Container(
                 height: MediaQuery.sizeOf(context).height * 0.28,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [kBottomBoxShadow],
-                  color: Colors.white,
+                  color: appTheme.altBackgroundColor,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -67,19 +66,19 @@ class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModa
                     Container(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade500,
+                        color: appTheme.altFontColor,
                         borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(10),
                         ),
                         boxShadow: [kBottomBoxShadow],
                       ),
-                      child: const Text(
+                      child: Text(
                         'Mensagem personalizada do cliente:',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                          color: appTheme.fontColor,
                         ),
                       ),
                     ),
@@ -94,6 +93,8 @@ class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModa
                           expands: true,
                           maxLines: null,
                           controller: messageController,
+                          cursorColor: appTheme.fontColor,
+                          style: TextStyle(color: appTheme.fontColor),
                           decoration: InputDecoration(
                             filled: false,
                             border: InputBorder.none,
@@ -104,17 +105,23 @@ class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModa
                               color: Colors.grey.shade500,
                             ),
                           ),
+                          onChanged: (text) {
+                            if (text.isEmpty) {
+                              controller.value = {MaterialState.disabled};
+                            }
+                          },
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
               SizedBox(
                 width: 200,
                 height: 50,
                 child: ElevatedButton(
+                  statesController: controller,
                   onPressed: () {
                     Provider.of<CustomersProvider>(context, listen: false)
                         .changeCustomerMessage(widget.customer, messageController.text);
@@ -122,7 +129,7 @@ class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModa
                       const SnackBar(
                         dismissDirection: DismissDirection.horizontal,
                         margin: EdgeInsets.symmetric(
-                          vertical: 80,
+                          vertical: 90,
                           horizontal: 10,
                         ),
                         behavior: SnackBarBehavior.floating,
@@ -132,23 +139,7 @@ class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModa
                     );
                     Navigator.pop(context);
                   },
-                  style: ButtonStyle(
-                    backgroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
-                    foregroundColor: const MaterialStatePropertyAll<Color>(
-                      Color(0xff886a4a),
-                    ),
-                    textStyle: const MaterialStatePropertyAll<TextStyle>(
-                      TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    overlayColor: const MaterialStatePropertyAll<Color>(
-                      Colors.black12,
-                    ),
-                    shape: MaterialStatePropertyAll<OutlinedBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
+                  style: kBrownButtonStyle,
                   child: const Text(
                     'Salvar mensagem',
                     style: TextStyle(

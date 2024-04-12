@@ -1,17 +1,45 @@
+import 'package:bft_clientes/models/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-Color kBackgroundColor = const Color(0xFF0B0C0D);
-Color kAltBackgroundColor = const Color(0xFF888C8C);
+// ColorTheme darkColorTheme = ColorTheme(
+//   backgroundColor: const Color(0xFF0D0D0D),
+//   altBackgroundColor: const Color(0xFF737373),
+//   primaryColor: const Color(0xFF5A4C34),
+//   altPrimaryColor: const Color(0xFFAD906E),
+//   secondaryColor: const Color(0xFFD8D9D7),
+//   altSecondaryColor: const Color(0xFF262626),
+//   fontColor: const Color(0xFFF2F2F2),
+//   altFontColor: const Color(0xFF262626),
+//   secondaryFontColor: const Color(0xFFD8D9D7),
+//   altSecondaryFontColor: const Color(0xFF737373),
+// );
+//
+// ColorTheme lightColorTheme = ColorTheme(
+//   backgroundColor: const Color(0xFFF2F2F2),
+//   altBackgroundColor: const Color(0xFFF2F2F2),
+//   primaryColor: const Color(0xFFAD906E),
+//   altPrimaryColor: const Color(0xFF5A4C34),
+//   secondaryColor: const Color(0xFF737373),
+//   altSecondaryColor: const Color(0xFFA6A6A6),
+//   fontColor: const Color(0xFF0D0D0D),
+//   altFontColor: const Color(0xFFF2F2F2),
+//   secondaryFontColor: const Color(0xFF262626),
+//   altSecondaryFontColor: const Color(0xFF737373),
+// );
 
-Color kPrimaryColor = const Color(0xFFD8D9D7);
-Color kAltPrimaryColor = const Color(0xFF40403E);
-
-Color kFontColor = const Color(0xFFD8D9D7);
-Color kAltFontColor = const Color(0xFFF2F2F2);
-
-Color kWeakBrownColor = const Color(0xFFAD906E);
-Color kBrownColor = const Color(0xFF5A4C34);
+final ColorTheme appTheme = ColorTheme(
+  backgroundColor: const Color(0xFF0D0D0D),
+  altBackgroundColor: const Color(0xFF737373),
+  primaryColor: const Color(0xFF5A4C34),
+  altPrimaryColor: const Color(0xFFAD906E),
+  secondaryColor: const Color(0xFFD8D9D7),
+  altSecondaryColor: const Color(0xFF262626),
+  fontColor: const Color(0xFFF2F2F2),
+  altFontColor: const Color(0xFF262626),
+  secondaryFontColor: const Color(0xFFD8D9D7),
+  altSecondaryFontColor: const Color(0xFF737373),
+);
 
 Color kWeakShadowColor = const Color(0xff000000).withOpacity(0.1);
 
@@ -28,6 +56,38 @@ BoxShadow kTopBoxShadow = BoxShadow(
   offset: kTopOffset,
   blurRadius: 2,
   color: kWeakShadowColor,
+);
+
+ButtonStyle kBrownButtonStyle = ButtonStyle(
+  backgroundColor: MaterialStatePropertyAll<Color>(appTheme.primaryColor),
+  foregroundColor: MaterialStatePropertyAll<Color>(appTheme.fontColor),
+  textStyle: const MaterialStatePropertyAll<TextStyle>(
+    TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: 18,
+    ),
+  ),
+  shape: MaterialStatePropertyAll<OutlinedBorder>(
+    RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8),
+    ),
+  ),
+);
+
+ButtonStyle greyButtonStyle = ButtonStyle(
+  backgroundColor: const MaterialStatePropertyAll<Color>(Color(0xFF737373)),
+  foregroundColor: const MaterialStatePropertyAll<Color>(Color(0xFFF2F2F2)),
+  textStyle: const MaterialStatePropertyAll<TextStyle>(
+    TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: 18,
+    ),
+  ),
+  shape: MaterialStatePropertyAll<OutlinedBorder>(
+    RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8),
+    ),
+  ),
 );
 
 AppBar kDefaultAppBar = AppBar(
