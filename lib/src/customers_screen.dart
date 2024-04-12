@@ -1,11 +1,10 @@
 import 'package:bft_clientes/controllers/customers_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../models/customer.dart';
 import 'components/create_customer_modal.dart';
 import 'components/customer_tile.dart';
-import 'constants.dart';
+import '../constants.dart';
 
 class CustomersScreen extends StatefulWidget {
   const CustomersScreen({
@@ -131,9 +130,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                     ),
                     onChanged: (value) {
                       setState(() {
-                        filteredCustomersList = customersList
-                            .where((customer) => customer.name.toLowerCase().contains(value.toLowerCase()))
-                            .toList();
+                        filteredCustomersList = customersList.where((customer) => customer.name.toLowerCase().contains(value.toLowerCase())).toList();
                       });
                     },
                   ),

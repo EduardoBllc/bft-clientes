@@ -1,6 +1,5 @@
-import 'package:bft_clientes/src/constants.dart';
+import 'package:bft_clientes/constants.dart';
 import 'package:flutter/material.dart';
-
 import '../../models/customer.dart';
 import 'customer_message_modal.dart';
 import 'customer_modal.dart';
