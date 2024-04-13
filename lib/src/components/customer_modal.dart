@@ -1,9 +1,11 @@
 import "package:bft_clientes/src/components/standard_modal.dart";
-import "package:bft_clientes/src/constants.dart";
 import "package:flutter/material.dart";
 import 'package:intl/intl.dart';
 import "package:material_design_icons_flutter/material_design_icons_flutter.dart";
+import "package:provider/provider.dart";
 
+import "../../controllers/settings_provider.dart";
+import "../../models/color_theme.dart";
 import "../../models/customer.dart";
 
 class CustomerModal extends StatelessWidget {
@@ -16,6 +18,7 @@ class CustomerModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ColorTheme appTheme = Provider.of<SettingsProvider>(context, listen: false).appTheme;
     return StandardModal(
       maxHeight: MediaQuery.sizeOf(context).height * 0.27,
       topRightButtons: [

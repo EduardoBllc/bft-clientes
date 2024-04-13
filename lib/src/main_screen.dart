@@ -2,6 +2,7 @@ import 'dart:io' show Platform;
 
 import 'package:bft_clientes/src/birthday_screen.dart';
 import 'package:bft_clientes/src/components/customer_tile.dart';
+import 'package:bft_clientes/src/constants.dart';
 import 'package:bft_clientes/src/customers_screen.dart';
 import 'package:bft_clientes/src/settings_screen.dart';
 import 'package:bft_clientes/src/weekly_message_screen.dart';
@@ -10,10 +11,12 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
 import '../controllers/customers_provider.dart';
+import '../controllers/settings_provider.dart';
 import '../models/birthday_options.dart';
+import '../models/color_theme.dart';
 import '../models/customer.dart';
-import '../constants.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -51,13 +54,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle defTextStyle = TextStyle(
-      fontSize: 22,
-      color: appTheme.secondaryColor,
-    );
-
-    TextStyle defSmallTextSyle = defTextStyle.copyWith(fontSize: 14);
-
+    ColorTheme appTheme = Provider.of<SettingsProvider>(context).appTheme;
     List<Customer> customersList = Provider.of<CustomersProvider>(context).customersList;
 
     List<Customer> filteredCustomerList = [];
@@ -65,15 +62,6 @@ class _MainScreenState extends State<MainScreen> {
     void getFilteredCustomerList(bool Function(Customer element) test) {
       filteredCustomerList = customersList.where(test).toList();
     }
-
-    ButtonStyle lightenButtonStyle = ButtonStyle(
-      backgroundColor: MaterialStatePropertyAll<Color>(appTheme.altSecondaryColor),
-      shape: MaterialStatePropertyAll<OutlinedBorder>(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-      ),
-    );
 
     switch (_birthdayOption) {
       case BirthdayOption.month:
@@ -86,8 +74,6 @@ class _MainScreenState extends State<MainScreen> {
         getFilteredCustomerList((customer) => customer.todaysBirthday);
         break;
     }
-
-    Color fontColor = const Color(0xFFD8D9D7);
 
     return Scaffold(
       backgroundColor: appTheme.backgroundColor,
@@ -115,26 +101,24 @@ class _MainScreenState extends State<MainScreen> {
                         size: Size.square(
                           MediaQuery.sizeOf(context).width * 0.35,
                         ),
-                        child: ElevatedButton(
+                        child: TextButton(
+                          style: appTheme.primaryButtonStyle,
                           onPressed: () {
                             Get.to(
                               () => const CustomersScreen(createCustomer: true),
                               transition: Transition.rightToLeft,
                             );
                           },
-                          style: lightenButtonStyle,
-                          child: Column(
+                          child: const Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
                                 Icons.person_add_alt_1,
-                                color: appTheme.secondaryColor,
                                 size: 55,
                               ),
                               Text(
                                 'Cadastrar novo cliente',
                                 textAlign: TextAlign.center,
-                                style: defSmallTextSyle,
                                 maxLines: 2,
                               ),
                             ],
@@ -145,26 +129,24 @@ class _MainScreenState extends State<MainScreen> {
                         size: Size.square(
                           MediaQuery.sizeOf(context).width * 0.35,
                         ),
-                        child: ElevatedButton(
+                        child: TextButton(
+                          style: appTheme.primaryButtonStyle,
                           onPressed: () {
                             Get.to(
                               () => const CustomersScreen(),
                               transition: Transition.rightToLeft,
                             );
                           },
-                          style: lightenButtonStyle,
-                          child: Column(
+                          child: const Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
                                 Icons.groups,
-                                color: appTheme.secondaryColor,
                                 size: 55,
                               ),
                               Text(
                                 'Todos Clientes',
                                 textAlign: TextAlign.center,
-                                style: defSmallTextSyle,
                                 maxLines: 2,
                               ),
                             ],
@@ -176,99 +158,99 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 SizedBox(
                   height: MediaQuery.sizeOf(context).height * 0.13,
-                  child: ElevatedButton(
+                  child: TextButton(
                     onPressed: () {
                       Get.to(
                         () => const WeekMessageScreen(),
                         transition: Transition.rightToLeft,
                       );
                     },
-                    style: lightenButtonStyle,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.edit_note,
-                          color: appTheme.secondaryColor,
-                          size: 60,
-                        ),
-                        Expanded(
-                          child: Text(
-                            'Mensagem da semana',
-                            textAlign: TextAlign.center,
-                            style: defTextStyle,
-                            maxLines: 2,
+                    style: appTheme.mainScreenPrimaryButtonStyle,
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.edit_note,
+                            size: 60,
                           ),
-                        ),
-                      ],
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              'Mensagem da semana',
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   height: MediaQuery.sizeOf(context).height * 0.13,
-                  child: ElevatedButton(
-                    style: lightenButtonStyle.copyWith(
-                      backgroundColor: const MaterialStatePropertyAll<Color>(
-                        Color(0xFF888C8C),
-                      ),
-                    ),
+                  child: TextButton(
+                    style: appTheme.secondaryButtonStyle,
                     onPressed: () {
                       Get.to(
                         () => const DailyMessagesScreen(),
                         transition: Transition.rightToLeft,
                       );
                     },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'Aniversariantes',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontSize: Platform.isIOS ? 24 : 26,
-                              color: appTheme.fontColor,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Aniversariantes',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: Platform.isIOS ? 24 : 26,
+                              ),
+                              maxLines: 3,
                             ),
-                            maxLines: 3,
                           ),
-                        ),
-                        const SizedBox(width: 10),
-                        Icon(
-                          Icons.celebration,
-                          color: appTheme.secondaryColor,
-                          size: 60,
-                        ),
-                      ],
+                          const SizedBox(width: 10),
+                          const Icon(
+                            Icons.celebration,
+                            size: 60,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   height: MediaQuery.sizeOf(context).height * 0.14,
-                  child: ElevatedButton(
+                  child: TextButton(
                     onPressed: () {
                       Get.to(
                         () => const SettingsScreen(),
                         transition: Transition.rightToLeft,
                       );
                     },
-                    style: lightenButtonStyle,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.settings,
-                          color: appTheme.secondaryColor,
-                          size: 60,
-                        ),
-                        Expanded(
-                          child: Text(
-                            'Configurações',
-                            textAlign: TextAlign.center,
-                            style: defTextStyle,
-                            maxLines: 2,
+                    style: appTheme.mainScreenPrimaryButtonStyle,
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.settings,
+                            size: 60,
                           ),
-                        ),
-                      ],
+                          Expanded(
+                            child: Text(
+                              'Configurações',
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -281,8 +263,8 @@ class _MainScreenState extends State<MainScreen> {
               alignment: Alignment.bottomCenter,
               child: Shimmer.fromColors(
                 direction: ShimmerDirection.btt,
-                baseColor: fontColor.withOpacity(0.5),
-                highlightColor: fontColor.withOpacity(0.2),
+                baseColor: appTheme.fontColor.withOpacity(0.5),
+                highlightColor: appTheme.fontColor.withOpacity(0.2),
                 period: const Duration(seconds: 5),
                 child: const Icon(
                   Icons.keyboard_double_arrow_up,
@@ -293,13 +275,14 @@ class _MainScreenState extends State<MainScreen> {
           ),
           SlidingUpPanel(
             backdropEnabled: true,
-            color: appTheme.altSecondaryColor,
+            color: appTheme.modalBackgroundColor,
             borderRadius: const BorderRadius.vertical(
               top: Radius.circular(20),
             ),
             minHeight: Platform.isIOS ? 110 : 100,
             maxHeight: filteredCustomerList.isNotEmpty
-                ? (birthdayRowBoxHeight + (Platform.isIOS ? 80 : 50)) + (80 * filteredCustomerList.length).clamp(80, 300)
+                ? (birthdayRowBoxHeight + (Platform.isIOS ? 80 : 50)) +
+                    (80 * filteredCustomerList.length).clamp(80, 300)
                 : (birthdayRowBoxHeight + 30) + (Platform.isIOS ? 260 : 230),
             panel: Stack(
               children: [

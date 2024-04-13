@@ -1,14 +1,19 @@
 import 'dart:io' show Platform;
+
 import 'package:bft_clientes/controllers/messages_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../constants.dart';
+
+import '../controllers/settings_provider.dart';
+import '../models/color_theme.dart';
+import 'constants.dart';
 
 class WeekMessageScreen extends StatelessWidget {
   const WeekMessageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ColorTheme appTheme = Provider.of<SettingsProvider>(context, listen: false).appTheme;
     String providerMessage = Provider.of<MessagesProvider>(context, listen: false).weeklyMessage;
 
     return Scaffold(
@@ -49,7 +54,7 @@ class WeekMessageScreen extends StatelessWidget {
                         : MediaQuery.sizeOf(context).height * 0.5,
                     decoration: BoxDecoration(
                       boxShadow: [kBottomBoxShadow],
-                      color: appTheme.altBackgroundColor,
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
                       border: Border(
                         top: BorderSide(
@@ -72,18 +77,12 @@ class WeekMessageScreen extends StatelessWidget {
                               initialValue: providerMessage,
                               expands: true,
                               maxLines: null,
-                              cursorColor: appTheme.fontColor,
-                              style: TextStyle(
-                                color: appTheme.fontColor,
-                              ),
-                              decoration: InputDecoration(
+                              cursorColor: Colors.grey.shade700,
+                              decoration: const InputDecoration(
                                 filled: false,
                                 border: InputBorder.none,
                                 hintText: 'Digite aqui a mensagem que será enviada',
                                 hintMaxLines: 2,
-                                hintStyle: TextStyle(
-                                  color: appTheme.secondaryFontColor,
-                                ),
                               ),
                             ),
                           ),
@@ -98,12 +97,39 @@ class WeekMessageScreen extends StatelessWidget {
                             ),
                             padding: const EdgeInsets.symmetric(
                               vertical: 5,
-                              horizontal: 40,
+                              horizontal: 60,
                             ),
-                            child: ElevatedButton(
-                              style: greyButtonStyle,
-                              onPressed: () {},
-                              child: const Text('Repetir a Anterior'),
+                            child: Material(
+                              type: MaterialType.transparency, // Importante para manter a cor original
+                              child: InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  height: 40,
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                    color: appTheme.secondaryButtonStyle.backgroundColor?.resolve({}),
+                                    borderRadius: BorderRadius.circular(7),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        spreadRadius: 0,
+                                        blurRadius: 4,
+                                        offset: const Offset(0, 2),
+                                      )
+                                    ],
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Repetir a Antrerior',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: appTheme.secondaryButtonStyle.foregroundColor?.resolve({}),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         )
@@ -147,12 +173,18 @@ class WeekMessageScreen extends StatelessWidget {
                       flex: 2,
                       child: SizedBox(
                         height: 75,
-                        child: ElevatedButton(
-                          style: kBrownButtonStyle,
+                        child: TextButton(
+                          style: appTheme.primaryButtonStyle.copyWith(
+                            shape: MaterialStatePropertyAll<OutlinedBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                          ),
                           onPressed: () {},
-                          child: Text(
+                          child: const Text(
                             'Editar',
-                            style: TextStyle(color: appTheme.secondaryColor),
+                            style: TextStyle(fontSize: 20),
                           ),
                         ),
                       ),
@@ -164,13 +196,19 @@ class WeekMessageScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 height: 70,
-                child: ElevatedButton(
+                child: TextButton(
                   onPressed: () {},
-                  style: kBrownButtonStyle,
+                  style: appTheme.primaryButtonStyle.copyWith(
+                    shape: MaterialStatePropertyAll<OutlinedBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
                   child: const Text(
                     'Confirmar Envio',
                     style: TextStyle(
-                      fontSize: 17,
+                      fontSize: 20,
                     ),
                   ),
                 ),

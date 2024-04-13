@@ -1,5 +1,5 @@
-import 'package:bft_clientes/constants.dart';
 import 'package:flutter/material.dart';
+
 import '../../models/customer.dart';
 import 'customer_message_modal.dart';
 import 'customer_modal.dart';
@@ -29,7 +29,7 @@ class CustomerTile extends StatelessWidget {
               );
             },
             child: Material(
-              color: appTheme.secondaryColor,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(10),
               elevation: 3,
               child: Padding(
@@ -48,7 +48,7 @@ class CustomerTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 5),
             child: Material(
-              color: appTheme.secondaryColor,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(10),
               elevation: 3,
               child: Padding(

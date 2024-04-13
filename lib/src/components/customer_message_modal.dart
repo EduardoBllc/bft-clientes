@@ -2,8 +2,11 @@ import 'package:bft_clientes/controllers/customers_provider.dart';
 import 'package:bft_clientes/src/components/standard_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../controllers/settings_provider.dart';
+import '../../models/color_theme.dart';
 import '../../models/customer.dart';
-import '../../constants.dart';
+import '../constants.dart';
 
 class MessageEditingCustomerModal extends StatefulWidget {
   const MessageEditingCustomerModal(
@@ -33,6 +36,8 @@ class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModa
 
   @override
   Widget build(BuildContext context) {
+    ColorTheme appTheme = Provider.of<SettingsProvider>(context, listen: false).appTheme;
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -138,7 +143,7 @@ class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModa
                     );
                     Navigator.pop(context);
                   },
-                  style: kBrownButtonStyle,
+                  style: appTheme.primaryButtonStyle,
                   child: const Text(
                     'Salvar mensagem',
                     style: TextStyle(

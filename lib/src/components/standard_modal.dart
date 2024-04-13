@@ -1,5 +1,8 @@
-import 'package:bft_clientes/src/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../controllers/settings_provider.dart';
+import '../../models/color_theme.dart';
 
 class StandardModal extends StatelessWidget {
   const StandardModal({
@@ -15,6 +18,7 @@ class StandardModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ColorTheme appTheme = Provider.of<SettingsProvider>(context, listen: false).appTheme;
     return Container(
       color: Colors.transparent,
       constraints: BoxConstraints(
@@ -23,9 +27,9 @@ class StandardModal extends StatelessWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: appTheme.altSecondaryColor,
+          color: appTheme.modalBackgroundColor,
           borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(18),
+            top: Radius.circular(25),
           ),
         ),
         child: Stack(
@@ -40,7 +44,7 @@ class StandardModal extends StatelessWidget {
                   width: MediaQuery.sizeOf(context).width * 0.2,
                   decoration: BoxDecoration(
                     color: Colors.grey.shade500.withOpacity(0.8),
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),

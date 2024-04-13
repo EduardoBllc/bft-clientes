@@ -1,4 +1,5 @@
 import 'package:bft_clientes/controllers/messages_provider.dart';
+import 'package:bft_clientes/controllers/settings_provider.dart';
 import 'package:bft_clientes/src/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -19,6 +20,7 @@ class CustomersManager extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => CustomersProvider()),
         ChangeNotifierProvider(create: (_) => MessagesProvider()),
+        ChangeNotifierProvider(create: (_) => SettingsProvider()),
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,

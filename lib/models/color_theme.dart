@@ -12,6 +12,14 @@ class ColorTheme {
   final Color secondaryFontColor;
   final Color altSecondaryFontColor;
 
+  final Color listBackgroundColor;
+  final Color modalBackgroundColor;
+
+  final ButtonStyle primaryButtonStyle;
+  final ButtonStyle secondaryButtonStyle;
+  final ButtonStyle mainScreenPrimaryButtonStyle;
+  final ButtonStyle mainScreenSecondaryButtonStyle;
+
   ColorTheme({
     required this.backgroundColor,
     required this.altBackgroundColor,
@@ -23,5 +31,11 @@ class ColorTheme {
     required this.altFontColor,
     required this.secondaryFontColor,
     required this.altSecondaryFontColor,
+    required this.primaryButtonStyle,
+    required this.secondaryButtonStyle,
+    required this.mainScreenPrimaryButtonStyle,
+    required this.mainScreenSecondaryButtonStyle,
+    required this.listBackgroundColor,
+    required this.modalBackgroundColor,
   });
 }

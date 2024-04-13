@@ -1,9 +1,11 @@
 import 'package:bft_clientes/src/components/standard_modal.dart';
-import 'package:bft_clientes/src/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
 
+import '../../controllers/settings_provider.dart';
+import '../../models/color_theme.dart';
 import '../../models/customer.dart';
 
 class CreateCustomerModal extends StatefulWidget {
@@ -23,6 +25,7 @@ class _CreateCustomerModalState extends State<CreateCustomerModal> {
 
   @override
   Widget build(BuildContext context) {
+    ColorTheme appTheme = Provider.of<SettingsProvider>(context).appTheme;
     return StandardModal(
       maxHeight: MediaQuery.sizeOf(context).height * 0.5,
       body: Form(
@@ -176,7 +179,13 @@ class _CreateCustomerModalState extends State<CreateCustomerModal> {
                   SizedBox(
                     width: 200,
                     child: ElevatedButton(
-                      style: kBrownButtonStyle,
+                      style: appTheme.primaryButtonStyle.copyWith(
+                        shape: MaterialStatePropertyAll<OutlinedBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
                           Navigator.pop(

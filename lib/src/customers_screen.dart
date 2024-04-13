@@ -1,10 +1,13 @@
 import 'package:bft_clientes/controllers/customers_provider.dart';
+import 'package:bft_clientes/src/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../controllers/settings_provider.dart';
+import '../models/color_theme.dart';
 import '../models/customer.dart';
 import 'components/create_customer_modal.dart';
 import 'components/customer_tile.dart';
-import '../constants.dart';
 
 class CustomersScreen extends StatefulWidget {
   const CustomersScreen({
@@ -57,6 +60,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ColorTheme appTheme = Provider.of<SettingsProvider>(context, listen: false).appTheme;
     List<Customer> customersList = Provider.of<CustomersProvider>(context).customersList;
     filteredCustomersList ??= List.from(customersList);
 
@@ -67,9 +71,9 @@ class _CustomersScreenState extends State<CustomersScreen> {
         builder: (context) {
           return FloatingActionButton(
             backgroundColor: appTheme.primaryColor,
-            child: Icon(
+            child: const Icon(
               Icons.add,
-              color: appTheme.fontColor,
+              color: Colors.white,
             ),
             onPressed: () async {
               createCustomerModal().then((customer) {
@@ -108,6 +112,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                 height: 80,
                 child: Center(
                   child: TextField(
+                    cursorColor: appTheme.fontColor,
                     style: const TextStyle(color: Colors.white),
                     autofocus: false,
                     decoration: const InputDecoration(
@@ -130,7 +135,9 @@ class _CustomersScreenState extends State<CustomersScreen> {
                     ),
                     onChanged: (value) {
                       setState(() {
-                        filteredCustomersList = customersList.where((customer) => customer.name.toLowerCase().contains(value.toLowerCase())).toList();
+                        filteredCustomersList = customersList
+                            .where((customer) => customer.name.toLowerCase().contains(value.toLowerCase()))
+                            .toList();
                       });
                     },
                   ),

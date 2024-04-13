@@ -2,18 +2,22 @@ import 'dart:io' show Platform;
 
 import 'package:bft_clientes/controllers/customers_provider.dart';
 import 'package:bft_clientes/controllers/messages_provider.dart';
+import 'package:bft_clientes/controllers/settings_provider.dart';
+import 'package:bft_clientes/src/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/color_theme.dart';
 import '../models/customer.dart';
 import 'components/customer_tile.dart';
-import '../constants.dart';
 
 class DailyMessagesScreen extends StatelessWidget {
   const DailyMessagesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ColorTheme appTheme = Provider.of<SettingsProvider>(context, listen: false).appTheme;
+
     List<Customer> todaysBirthdayCustomerList =
         Provider.of<CustomersProvider>(context).customersList.where((customer) => customer.todaysBirthday).toList();
 
@@ -58,7 +62,7 @@ class DailyMessagesScreen extends StatelessWidget {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          color: appTheme.altSecondaryColor,
+                          color: appTheme.listBackgroundColor,
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [kBottomBoxShadow],
                         ),
@@ -81,7 +85,6 @@ class DailyMessagesScreen extends StatelessWidget {
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
-                                        color: appTheme.fontColor,
                                       ),
                                       textAlign: TextAlign.center,
                                     ),
@@ -124,7 +127,7 @@ class DailyMessagesScreen extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.only(top: 50),
                         decoration: BoxDecoration(
-                          color: appTheme.altSecondaryColor,
+                          color: appTheme.listBackgroundColor,
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [kBottomBoxShadow],
                         ),
@@ -135,7 +138,7 @@ class DailyMessagesScreen extends StatelessWidget {
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                      color: Colors.white,
+                                      color: appTheme.altSecondaryFontColor,
                                       boxShadow: [kBottomBoxShadow],
                                       borderRadius: const BorderRadius.vertical(
                                         top: Radius.circular(7),
@@ -150,7 +153,7 @@ class DailyMessagesScreen extends StatelessWidget {
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.grey.shade600,
+                                        color: appTheme.fontColor,
                                       ),
                                       textAlign: TextAlign.center,
                                     ),
@@ -200,7 +203,7 @@ class DailyMessagesScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [kBottomBoxShadow],
-                          color: appTheme.altBackgroundColor,
+                          color: Colors.white,
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -211,7 +214,7 @@ class DailyMessagesScreen extends StatelessWidget {
                                 horizontal: 10,
                               ),
                               decoration: BoxDecoration(
-                                color: appTheme.altSecondaryColor,
+                                color: appTheme.altPrimaryColor,
                                 borderRadius: const BorderRadius.vertical(
                                   top: Radius.circular(10),
                                 ),
@@ -223,7 +226,7 @@ class DailyMessagesScreen extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
-                                  color: appTheme.fontColor,
+                                  color: appTheme.altFontColor,
                                 ),
                               ),
                             ),
@@ -260,7 +263,7 @@ class DailyMessagesScreen extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                color: appTheme.altSecondaryColor,
+                color: appTheme.altBackgroundColor,
                 boxShadow: [kTopBoxShadow],
               ),
               padding: Platform.isIOS ? const EdgeInsets.only(top: 15) : const EdgeInsets.symmetric(vertical: 15),
@@ -273,7 +276,13 @@ class DailyMessagesScreen extends StatelessWidget {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {},
-                        style: kBrownButtonStyle,
+                        style: appTheme.primaryButtonStyle.copyWith(
+                          shape: MaterialStatePropertyAll<OutlinedBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                        ),
                         child: const Text(
                           'Confirmar Envio',
                           style: TextStyle(
