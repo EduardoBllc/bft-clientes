@@ -30,14 +30,6 @@ class CustomersManager extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-              overlayColor: const MaterialStatePropertyAll<Color>(Colors.white10),
-              elevation: MaterialStateProperty.resolveWith<double>(
-                (states) => states.contains(MaterialState.pressed) ? 0 : 3,
-              ),
-            ),
-          ),
         ),
         home: const MainScreen(),
       ),

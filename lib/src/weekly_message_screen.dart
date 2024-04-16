@@ -49,9 +49,7 @@ class WeekMessageScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   Container(
-                    height: Platform.isIOS
-                        ? MediaQuery.sizeOf(context).height * 0.45
-                        : MediaQuery.sizeOf(context).height * 0.5,
+                    height: Platform.isIOS ? MediaQuery.sizeOf(context).height * 0.45 : MediaQuery.sizeOf(context).height * 0.5,
                     decoration: BoxDecoration(
                       boxShadow: [kBottomBoxShadow],
                       color: Colors.white,
@@ -99,38 +97,49 @@ class WeekMessageScreen extends StatelessWidget {
                               vertical: 5,
                               horizontal: 60,
                             ),
-                            child: Material(
-                              type: MaterialType.transparency, // Importante para manter a cor original
-                              child: InkWell(
-                                onTap: () {},
-                                child: Container(
-                                  height: 40,
-                                  width: 50,
-                                  decoration: BoxDecoration(
-                                    color: appTheme.secondaryButtonStyle.backgroundColor?.resolve({}),
-                                    borderRadius: BorderRadius.circular(7),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.2),
-                                        spreadRadius: 0,
-                                        blurRadius: 4,
-                                        offset: const Offset(0, 2),
-                                      )
-                                    ],
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'Repetir a Antrerior',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: appTheme.secondaryButtonStyle.foregroundColor?.resolve({}),
-                                      ),
-                                    ),
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              style: appTheme.altSecondaryButtonStyle.copyWith(
+                                shape: MaterialStatePropertyAll<OutlinedBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
                                   ),
                                 ),
                               ),
+                              child: const Text('Repetir a Anterior'),
                             ),
+                            // Material(
+                            //   type: MaterialType.transparency, // Importante para manter a cor original
+                            //   child: InkWell(
+                            //     onTap: () {},
+                            //     child: Container(
+                            //       height: 40,
+                            //       width: 50,
+                            //       decoration: BoxDecoration(
+                            //         color: appTheme.secondaryButtonStyle.backgroundColor?.resolve({}),
+                            //         borderRadius: BorderRadius.circular(7),
+                            //         boxShadow: [
+                            //           BoxShadow(
+                            //             color: Colors.black.withOpacity(0.2),
+                            //             spreadRadius: 0,
+                            //             blurRadius: 4,
+                            //             offset: const Offset(0, 2),
+                            //           )
+                            //         ],
+                            //       ),
+                            //       child: Center(
+                            //         child: Text(
+                            //           'Repetir a Antrerior',
+                            //           textAlign: TextAlign.center,
+                            //           style: TextStyle(
+                            //             fontWeight: FontWeight.bold,
+                            //             color: appTheme.altSecondaryButtonStyle.foregroundColor?.resolve({}),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
                           ),
                         )
                       ],

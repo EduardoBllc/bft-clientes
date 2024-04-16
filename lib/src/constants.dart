@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 ButtonStyle shapedButtonStyle = ButtonStyle(
+  overlayColor: MaterialStatePropertyAll<Color>(Colors.black.withOpacity(0.1)),
+  elevation: const MaterialStatePropertyAll<double>(0),
   shape: MaterialStatePropertyAll<OutlinedBorder>(
     RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(20),
@@ -30,9 +32,27 @@ ColorTheme darkColorTheme = ColorTheme(
       ),
     ),
   ),
+  altPrimaryButtonStyle: shapedButtonStyle.copyWith(
+    backgroundColor: const MaterialStatePropertyAll<Color>(Color(0xffad906e)),
+    foregroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
+    textStyle: const MaterialStatePropertyAll<TextStyle>(
+      TextStyle(
+        fontWeight: FontWeight.w700,
+      ),
+    ),
+  ),
   secondaryButtonStyle: shapedButtonStyle.copyWith(
     backgroundColor: const MaterialStatePropertyAll<Color>(Color(0xFF737373)),
-    foregroundColor: const MaterialStatePropertyAll<Color>(Color(0xFFD8D9D7)),
+    foregroundColor: const MaterialStatePropertyAll<Color>(Color(0xFF262626)),
+    textStyle: const MaterialStatePropertyAll<TextStyle>(
+      TextStyle(
+        fontWeight: FontWeight.w700,
+      ),
+    ),
+  ),
+  altSecondaryButtonStyle: shapedButtonStyle.copyWith(
+    backgroundColor: const MaterialStatePropertyAll<Color>(Color(0xFFD8D9D7)),
+    foregroundColor: const MaterialStatePropertyAll<Color>(Color(0xFF262626)),
     textStyle: const MaterialStatePropertyAll<TextStyle>(
       TextStyle(
         fontWeight: FontWeight.w700,
@@ -82,9 +102,22 @@ ColorTheme lightColorTheme = ColorTheme(
       ),
     ),
   ),
+  altPrimaryButtonStyle: shapedButtonStyle.copyWith(
+    backgroundColor: const MaterialStatePropertyAll<Color>(Color(0xFF5A4C34)),
+    foregroundColor: const MaterialStatePropertyAll<Color>(Color(0xFFF2F2F2)),
+    textStyle: const MaterialStatePropertyAll<TextStyle>(
+      TextStyle(
+        fontWeight: FontWeight.w700,
+      ),
+    ),
+  ),
   secondaryButtonStyle: shapedButtonStyle.copyWith(
     backgroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
     foregroundColor: MaterialStatePropertyAll<Color>(Colors.grey.shade700),
+  ),
+  altSecondaryButtonStyle: shapedButtonStyle.copyWith(
+    backgroundColor: const MaterialStatePropertyAll<Color>(Color(0xFF737373)),
+    foregroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
   ),
   mainScreenPrimaryButtonStyle: shapedButtonStyle.copyWith(
     backgroundColor: const MaterialStatePropertyAll<Color>(Color(0xFFE0D8CF)),

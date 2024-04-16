@@ -16,7 +16,9 @@ class ColorTheme {
   final Color modalBackgroundColor;
 
   final ButtonStyle primaryButtonStyle;
+  final ButtonStyle altPrimaryButtonStyle;
   final ButtonStyle secondaryButtonStyle;
+  final ButtonStyle altSecondaryButtonStyle;
   final ButtonStyle mainScreenPrimaryButtonStyle;
   final ButtonStyle mainScreenSecondaryButtonStyle;
 
@@ -32,7 +34,9 @@ class ColorTheme {
     required this.secondaryFontColor,
     required this.altSecondaryFontColor,
     required this.primaryButtonStyle,
+    required this.altPrimaryButtonStyle,
     required this.secondaryButtonStyle,
+    required this.altSecondaryButtonStyle,
     required this.mainScreenPrimaryButtonStyle,
     required this.mainScreenSecondaryButtonStyle,
     required this.listBackgroundColor,
