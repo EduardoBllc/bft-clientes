@@ -10,11 +10,13 @@ import 'controllers/customers_provider.dart';
 import 'firebase_options.dart';
 
 void main() async {
+  runApp(const CustomersManager());
+
+  WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  runApp(const CustomersManager());
 }
 
 class CustomersManager extends StatelessWidget {
