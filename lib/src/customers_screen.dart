@@ -105,7 +105,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
               color: appTheme.altBackgroundColor,
               elevation: 2,
               borderRadius: const BorderRadius.vertical(
-                bottom: Radius.circular(5),
+                bottom: Radius.circular(10),
               ),
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -113,24 +113,27 @@ class _CustomersScreenState extends State<CustomersScreen> {
                 child: Center(
                   child: TextField(
                     cursorColor: appTheme.fontColor,
-                    style: const TextStyle(color: Colors.white),
+                    style: TextStyle(color: appTheme.fontColor),
                     autofocus: false,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.search,
-                        color: Colors.white,
+                        color: appTheme.fontColor,
                       ),
                       hintText: 'Pesquisar por nome',
                       hintStyle: TextStyle(
-                        color: Colors.white,
+                        color: appTheme.fontColor,
                       ),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
-                          color: Colors.white,
+                          color: appTheme.fontColor,
                         ),
                       ),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white, width: 2),
+                        borderSide: BorderSide(
+                          color: appTheme.fontColor,
+                          width: 2,
+                        ),
                       ),
                     ),
                     onChanged: (value) {

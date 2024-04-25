@@ -7,6 +7,7 @@ import "package:provider/provider.dart";
 import "../../controllers/settings_provider.dart";
 import "../../models/color_theme.dart";
 import "../../models/customer.dart";
+import "edit_customer_modal.dart";
 
 class CustomerModal extends StatelessWidget {
   const CustomerModal(
@@ -27,7 +28,15 @@ class CustomerModal extends StatelessWidget {
             backgroundColor: MaterialStatePropertyAll<Color>(appTheme.secondaryColor),
             elevation: const MaterialStatePropertyAll<double>(10),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+            showModalBottomSheet(
+              context: context,
+              builder: (context) => EditCustomerModal(
+                customer: customer,
+              ),
+            );
+          },
           icon: const Icon(Icons.edit),
         ),
         IconButton(
@@ -36,9 +45,8 @@ class CustomerModal extends StatelessWidget {
             elevation: const MaterialStatePropertyAll<double>(10),
           ),
           onPressed: () {},
-          icon: Icon(
+          icon: const Icon(
             Icons.delete_outline,
-            color: appTheme.altBackgroundColor,
           ),
         ),
       ],
@@ -57,7 +65,7 @@ class CustomerModal extends StatelessWidget {
             Text(
               '${customer.id}',
               style: TextStyle(
-                color: appTheme.altFontColor,
+                color: appTheme.altSecondaryFontColor,
                 fontSize: 16,
               ),
             ),

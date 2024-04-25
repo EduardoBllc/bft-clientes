@@ -16,6 +16,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool darkMode = false;
 
   @override
+  void initState() {
+    darkMode = Provider.of<SettingsProvider>(context, listen: false).appTheme == darkColorTheme;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     ColorTheme appTheme = Provider.of<SettingsProvider>(context).appTheme;
 
