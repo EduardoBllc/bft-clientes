@@ -1,13 +1,13 @@
-import 'package:bft_clientes/controllers/messages_provider.dart';
-import 'package:bft_clientes/controllers/settings_provider.dart';
+import 'package:bft_clientes/services/controllers/messages_provider.dart';
+import 'package:bft_clientes/services/controllers/settings_provider.dart';
 import 'package:bft_clientes/src/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 
-import 'controllers/customers_provider.dart';
 import 'firebase_options.dart';
+import 'services/controllers/customers_provider.dart';
 
 void main() async {
   runApp(const CustomersManager());

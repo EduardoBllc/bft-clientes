@@ -1,4 +1,4 @@
-import 'package:bft_clientes/controllers/customers_provider.dart';
+import 'package:bft_clientes/services/controllers/customers_provider.dart';
 import 'package:bft_clientes/src/components/customer_modal.dart';
 import 'package:bft_clientes/src/constants.dart';
 import 'package:flutter/material.dart';
@@ -6,15 +6,12 @@ import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
-import '../controllers/settings_provider.dart';
+import '../services/controllers/settings_provider.dart';
 import '../models/color_theme.dart';
 import '../models/customer.dart';
 
 class EditCustomerModal extends StatefulWidget {
-  const EditCustomerModal({
-    super.key,
-    required this.customer,
-  });
+  const EditCustomerModal(this.customer, {super.key});
 
   final Customer customer;
 

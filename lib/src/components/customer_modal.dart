@@ -4,8 +4,8 @@ import 'package:intl/intl.dart';
 import "package:material_design_icons_flutter/material_design_icons_flutter.dart";
 import "package:provider/provider.dart";
 
-import "../../controllers/customers_provider.dart";
-import "../../controllers/settings_provider.dart";
+import "../../services/controllers/customers_provider.dart";
+import "../../services/controllers/settings_provider.dart";
 import "../../models/color_theme.dart";
 import "../../models/customer.dart";
 import "../constants.dart";
@@ -24,7 +24,7 @@ class CustomerModal extends StatelessWidget {
   Widget build(BuildContext context) {
     ColorTheme appTheme = Provider.of<SettingsProvider>(context, listen: false).appTheme;
     return StandardModal(
-      maxHeight: MediaQuery.sizeOf(context).height * 0.3,
+      maxHeight: MediaQuery.sizeOf(context).height * 0.34,
       topRightButtons: [
         IconButton(
           style: ButtonStyle(
@@ -36,9 +36,7 @@ class CustomerModal extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => EditCustomerModal(
-                  customer: customer,
-                ),
+                builder: (context) => EditCustomerModal(customer),
               ),
             );
           },

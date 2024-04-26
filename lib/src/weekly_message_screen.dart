@@ -1,11 +1,11 @@
 import 'dart:io' show Platform;
 
-import 'package:bft_clientes/controllers/messages_provider.dart';
+import 'package:bft_clientes/services/controllers/messages_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../controllers/settings_provider.dart';
 import '../models/color_theme.dart';
+import '../services/controllers/settings_provider.dart';
 import 'constants.dart';
 
 class WeekMessageScreen extends StatelessWidget {
@@ -49,7 +49,9 @@ class WeekMessageScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   Container(
-                    height: Platform.isIOS ? MediaQuery.sizeOf(context).height * 0.45 : MediaQuery.sizeOf(context).height * 0.5,
+                    height: Platform.isIOS
+                        ? MediaQuery.sizeOf(context).height * 0.45
+                        : MediaQuery.sizeOf(context).height * 0.5,
                     decoration: BoxDecoration(
                       boxShadow: [kBottomBoxShadow],
                       color: Colors.white,

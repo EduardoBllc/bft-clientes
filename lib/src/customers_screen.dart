@@ -1,9 +1,9 @@
-import 'package:bft_clientes/controllers/customers_provider.dart';
+import 'package:bft_clientes/services/controllers/customers_provider.dart';
 import 'package:bft_clientes/src/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../controllers/settings_provider.dart';
+import '../services/controllers/settings_provider.dart';
 import '../models/color_theme.dart';
 import '../models/customer.dart';
 import 'components/create_customer_modal.dart';

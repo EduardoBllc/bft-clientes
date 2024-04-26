@@ -4,9 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/settings_provider.dart';
 import '../../models/color_theme.dart';
 import '../../models/customer.dart';
+import '../../services/controllers/settings_provider.dart';
+import '../../services/firebase_services/customers_services.dart';
 
 class CreateCustomerModal extends StatefulWidget {
   const CreateCustomerModal({super.key});
@@ -186,16 +187,15 @@ class _CreateCustomerModalState extends State<CreateCustomerModal> {
                           ),
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         if (formKey.currentState!.validate()) {
-                          Navigator.pop(
-                            context,
-                            Customer(
-                              name: name,
-                              whatsapp: whatsapp,
-                              birthdate: birthdate!,
-                            ),
+                          Customer? customer = await FirebaseCustomersServices().registerCustomer(
+                            name: name,
+                            whatsapp: whatsapp,
+                            birthdate: birthdate!,
                           );
+                          if (!mounted) return;
+                          Navigator.pop(context, customer);
                         }
                       },
                       child: const Text(

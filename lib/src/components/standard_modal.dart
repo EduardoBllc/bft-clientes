@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/settings_provider.dart';
+import '../../services/controllers/settings_provider.dart';
 import '../../models/color_theme.dart';
 
 class StandardModal extends StatelessWidget {

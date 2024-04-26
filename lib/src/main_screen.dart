@@ -12,8 +12,8 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-import '../controllers/customers_provider.dart';
-import '../controllers/settings_provider.dart';
+import '../services/controllers/customers_provider.dart';
+import '../services/controllers/settings_provider.dart';
 import '../models/birthday_options.dart';
 import '../models/color_theme.dart';
 import '../models/customer.dart';
