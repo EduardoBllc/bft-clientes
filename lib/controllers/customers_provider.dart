@@ -58,8 +58,36 @@ class CustomersProvider extends ChangeNotifier {
     Customer(name: 'Roberto Farias', birthdate: DateTime(1992, 4, 4), whatsapp: '31987665440'),
   ];
 
+  Customer _customerFinder(Customer customer) {
+    return customersList[customersList.indexOf(customer)];
+  }
+
   void changeCustomerMessage(Customer customer, String message) {
-    customersList[customersList.indexOf(customer)].customMessage = message;
+    _customerFinder(customer).customMessage = message;
+    notifyListeners();
+  }
+
+  void editCustomer(
+    Customer customer, {
+    String? name,
+    String? whatsapp,
+    DateTime? birthdate,
+  }) {
+    Customer providerCustomer = _customerFinder(customer);
+    if (name != null) {
+      providerCustomer.name = name;
+    }
+    if (birthdate != null) {
+      providerCustomer.birthdate = birthdate;
+    }
+    if (whatsapp != null) {
+      providerCustomer.whatsapp = whatsapp;
+    }
+    notifyListeners();
+  }
+
+  void removeCustomer(Customer customer) {
+    customersList.remove(customer);
     notifyListeners();
   }
 }

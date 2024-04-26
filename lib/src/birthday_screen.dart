@@ -80,7 +80,7 @@ class DailyMessagesScreen extends StatelessWidget {
                                       ),
                                     ),
                                     padding: const EdgeInsets.symmetric(vertical: 10),
-                                    child: Text(
+                                    child: const Text(
                                       'Aniversariantes de hoje',
                                       style: TextStyle(
                                         fontSize: 18,

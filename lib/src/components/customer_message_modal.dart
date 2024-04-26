@@ -22,7 +22,7 @@ class MessageEditingCustomerModal extends StatefulWidget {
 
 class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModal> {
   TextEditingController messageController = TextEditingController();
-  MaterialStatesController controller = MaterialStatesController({MaterialState.disabled});
+  MaterialStatesController stateController = MaterialStatesController({MaterialState.disabled});
 
   @override
   void initState() {
@@ -62,7 +62,13 @@ class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModa
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [kBottomBoxShadow],
-                  color: appTheme.altBackgroundColor,
+                  color: Colors.grey.shade100,
+                  border: !appTheme.isDarkTheme
+                      ? Border.all(
+                          color: Colors.grey,
+                          width: 0.3,
+                        )
+                      : null,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -70,7 +76,7 @@ class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModa
                     Container(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       decoration: BoxDecoration(
-                        color: appTheme.altFontColor,
+                        color: Colors.grey.shade900,
                         borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(10),
                         ),
@@ -98,7 +104,7 @@ class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModa
                           maxLines: null,
                           controller: messageController,
                           cursorColor: appTheme.fontColor,
-                          style: TextStyle(color: appTheme.fontColor),
+                          style: const TextStyle(color: Colors.black),
                           decoration: InputDecoration(
                             filled: false,
                             border: InputBorder.none,
@@ -111,7 +117,7 @@ class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModa
                           ),
                           onChanged: (text) {
                             if (text.isEmpty) {
-                              controller.value = {MaterialState.disabled};
+                              stateController.value = {MaterialState.disabled};
                             }
                           },
                         ),
@@ -125,7 +131,7 @@ class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModa
                 width: 200,
                 height: 50,
                 child: ElevatedButton(
-                  statesController: controller,
+                  statesController: stateController,
                   onPressed: () {
                     Provider.of<CustomersProvider>(context, listen: false)
                         .changeCustomerMessage(widget.customer, messageController.text);

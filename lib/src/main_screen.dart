@@ -77,7 +77,7 @@ class _MainScreenState extends State<MainScreen> {
 
     return Scaffold(
       backgroundColor: appTheme.backgroundColor,
-      appBar: kDefaultAppBar,
+      appBar: defaultAppBar(context),
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -359,13 +359,17 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                         filteredCustomerList.isNotEmpty
                             ? Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.only(top: Platform.isIOS ? 30 : 15),
+                                child: Container(
+                                  margin: EdgeInsets.only(top: Platform.isIOS ? 30 : 15),
+                                  decoration: BoxDecoration(
+                                    color: appTheme.backgroundColor,
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  padding: const EdgeInsets.all(5),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(15),
                                     child: ListView.separated(
                                       shrinkWrap: true,
-                                      padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
                                       separatorBuilder: (_, __) => const SizedBox(height: 10),
                                       itemCount: filteredCustomerList.length,
                                       itemBuilder: (context, index) => CustomerTile(

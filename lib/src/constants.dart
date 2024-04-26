@@ -1,6 +1,7 @@
 import 'package:bft_clientes/models/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 ButtonStyle shapedButtonStyle = ButtonStyle(
   overlayColor: MaterialStatePropertyAll<Color>(Colors.black.withOpacity(0.1)),
@@ -13,6 +14,7 @@ ButtonStyle shapedButtonStyle = ButtonStyle(
 );
 
 ColorTheme darkColorTheme = ColorTheme(
+  isDarkTheme: true,
   backgroundColor: const Color(0xFF0D0D0D),
   altBackgroundColor: const Color(0xFF262626),
   primaryColor: const Color(0xFF5A4C34),
@@ -83,6 +85,7 @@ ColorTheme darkColorTheme = ColorTheme(
 );
 
 ColorTheme lightColorTheme = ColorTheme(
+  isDarkTheme: false,
   backgroundColor: const Color(0xFFF1ECE9),
   altBackgroundColor: const Color(0xFFE0D8CF),
   primaryColor: const Color(0xffad906e),
@@ -154,38 +157,61 @@ BoxShadow kTopBoxShadow = BoxShadow(
   color: kWeakShadowColor,
 );
 
-AppBar kDefaultAppBar = AppBar(
-  backgroundColor: const Color(0xFF000000),
-  systemOverlayStyle: SystemUiOverlayStyle.light,
-  scrolledUnderElevation: 0,
-  centerTitle: true,
-  title: const Text(
-    'Barbearia Fernando Teixeira',
-    style: TextStyle(
-      color: Colors.white,
-      fontFamily: 'TenorSans',
-      fontWeight: FontWeight.bold,
+AppBar defaultAppBar(context, {List<Widget>? actions, void Function()? onReturnPressed}) {
+  return AppBar(
+    actions: actions,
+    leading: TextButton(
+      onPressed: () {
+        if (onReturnPressed != null) {
+          onReturnPressed();
+        } else {
+          Navigator.pop(context);
+        }
+      },
+      child: const Icon(
+        Icons.arrow_back_outlined,
+        color: Colors.white,
+      ),
     ),
-  ),
-);
+    backgroundColor: const Color(0xFF000000),
+    systemOverlayStyle: SystemUiOverlayStyle.light,
+    scrolledUnderElevation: 0,
+    centerTitle: true,
+    title: const Text(
+      'Barbearia Fernando Teixeira',
+      style: TextStyle(
+        color: Colors.white,
+        fontFamily: 'TenorSans',
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  );
+}
 
-Scaffold kUnderDevelopmentScreen = Scaffold(
-  appBar: kDefaultAppBar,
-  body: const Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      Icon(
-        Icons.construction,
-        size: 60,
-      ),
-      Text(
-        'Tela em construção',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 20,
+Scaffold underDevelopmentScreen(BuildContext context) {
+  return Scaffold(
+    appBar: defaultAppBar(context),
+    body: const Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Icon(
+          Icons.construction,
+          size: 60,
         ),
-      ),
-    ],
-  ),
-);
+        Text(
+          'Tela em construção',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 20,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+RegExp kNumbersOnlyRegex = RegExp(r'\d+');
+
+MaskTextInputFormatter kCellphoneMask =
+    MaskTextInputFormatter(mask: '(##)#####-####', filter: {'#': kNumbersOnlyRegex});

@@ -36,6 +36,12 @@ class _CustomersScreenState extends State<CustomersScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    filteredCustomersList = List.from(Provider.of<CustomersProvider>(context).customersList);
+  }
+
+  @override
   void initState() {
     super.initState();
     if (widget.createCustomer) {
@@ -66,7 +72,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
     return Scaffold(
       backgroundColor: appTheme.backgroundColor,
-      appBar: kDefaultAppBar,
+      appBar: defaultAppBar(context),
       floatingActionButton: Builder(
         builder: (context) {
           return FloatingActionButton(

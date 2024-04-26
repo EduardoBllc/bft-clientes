@@ -27,7 +27,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     return Scaffold(
       backgroundColor: appTheme.backgroundColor,
-      appBar: kDefaultAppBar,
+      appBar: defaultAppBar(context),
       body: Center(
         child: Switch(
           value: darkMode,

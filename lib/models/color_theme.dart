@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ColorTheme {
+  final bool isDarkTheme;
+
   final Color backgroundColor;
   final Color altBackgroundColor;
   final Color primaryColor;
@@ -23,6 +25,7 @@ class ColorTheme {
   final ButtonStyle mainScreenSecondaryButtonStyle;
 
   ColorTheme({
+    required this.isDarkTheme,
     required this.backgroundColor,
     required this.altBackgroundColor,
     required this.primaryColor,
