@@ -4,13 +4,13 @@ import 'package:intl/intl.dart';
 import "package:material_design_icons_flutter/material_design_icons_flutter.dart";
 import "package:provider/provider.dart";
 
-import "../../services/controllers/customers_provider.dart";
-import "../../services/controllers/settings_provider.dart";
-import "../../models/color_theme.dart";
-import "../../models/customer.dart";
-import "../constants.dart";
+import "../../../../../models/color_theme.dart";
+import "../../../../../models/customer.dart";
+import "../../../../../services/controllers/customers_provider.dart";
+import "../../../../../services/controllers/settings_provider.dart";
+import "../../../../components/customer_message_modal.dart";
+import "../../../../constants.dart";
 import "../edit_customer_screen.dart";
-import "customer_message_modal.dart";
 
 class CustomerModal extends StatelessWidget {
   const CustomerModal(
@@ -33,11 +33,10 @@ class CustomerModal extends StatelessWidget {
           ),
           onPressed: () {
             Navigator.pop(context);
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(
-                builder: (context) => EditCustomerModal(customer),
-              ),
+              EditCustomerModal.route,
+              arguments: customer,
             );
           },
           icon: const Icon(Icons.edit),

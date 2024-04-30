@@ -4,12 +4,14 @@ import 'package:bft_clientes/services/controllers/messages_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/color_theme.dart';
-import '../services/controllers/settings_provider.dart';
-import 'constants.dart';
+import '../../../models/color_theme.dart';
+import '../../../services/controllers/settings_provider.dart';
+import '../../constants.dart';
 
 class WeekMessageScreen extends StatelessWidget {
   const WeekMessageScreen({super.key});
+
+  static const route = '/week_message';
 
   @override
   Widget build(BuildContext context) {

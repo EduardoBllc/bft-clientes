@@ -1,25 +1,27 @@
 import 'dart:io' show Platform;
 
-import 'package:bft_clientes/src/birthday_screen.dart';
-import 'package:bft_clientes/src/components/customer_tile.dart';
 import 'package:bft_clientes/src/constants.dart';
-import 'package:bft_clientes/src/customers_screen.dart';
-import 'package:bft_clientes/src/settings_screen.dart';
-import 'package:bft_clientes/src/weekly_message_screen.dart';
+import 'package:bft_clientes/src/screens/birthday/birthday_screen.dart';
+import 'package:bft_clientes/src/screens/customers/view/components/customer_tile.dart';
+import 'package:bft_clientes/src/screens/customers/view/customers_screen.dart';
+import 'package:bft_clientes/src/screens/settings/settings_screen.dart';
+import 'package:bft_clientes/src/screens/weekly_message/weekly_message_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-import '../services/controllers/customers_provider.dart';
-import '../services/controllers/settings_provider.dart';
-import '../models/birthday_options.dart';
-import '../models/color_theme.dart';
-import '../models/customer.dart';
+import '../../../models/birthday_options.dart';
+import '../../../models/color_theme.dart';
+import '../../../models/customer.dart';
+import '../../../services/controllers/customers_provider.dart';
+import '../../../services/controllers/settings_provider.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
+
+  static const route = '/main';
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -77,7 +79,7 @@ class _MainScreenState extends State<MainScreen> {
 
     return Scaffold(
       backgroundColor: appTheme.backgroundColor,
-      appBar: defaultAppBar(context),
+      appBar: defaultAppBar(context, hasReturnButton: false,),
       body: Stack(
         fit: StackFit.expand,
         children: [

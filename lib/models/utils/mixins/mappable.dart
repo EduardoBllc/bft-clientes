@@ -1,3 +1,3 @@
 mixin Mappable {
-  Map<String, dynamic> get toMap;
+  Map<String, dynamic> get json;
 }

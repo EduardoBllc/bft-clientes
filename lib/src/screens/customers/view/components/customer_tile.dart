@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../models/customer.dart';
-import 'customer_message_modal.dart';
+import '../../../../../models/customer.dart';
+import '../../../../components/customer_message_modal.dart';
 import 'customer_modal.dart';
 
 class CustomerTile extends StatelessWidget {

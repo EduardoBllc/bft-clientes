@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../services/controllers/settings_provider.dart';
-import '../models/color_theme.dart';
-import 'constants.dart';
+import '../../../models/color_theme.dart';
+import '../../../services/controllers/settings_provider.dart';
+import '../../constants.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
+
+  static const route = '/settigs';
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -31,7 +33,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Center(
         child: Switch(
           value: darkMode,
-          activeColor: Colors.black,
+          inactiveTrackColor: Colors.grey.shade400,
+          inactiveThumbColor: Colors.grey.shade500,
+          activeTrackColor: Colors.grey.shade800,
+          activeColor: Colors.grey.shade900,
           onChanged: (bool isDarkMode) {
             setState(() {
               darkMode = isDarkMode;

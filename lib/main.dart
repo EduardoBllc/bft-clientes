@@ -1,6 +1,10 @@
 import 'package:bft_clientes/services/controllers/messages_provider.dart';
 import 'package:bft_clientes/services/controllers/settings_provider.dart';
-import 'package:bft_clientes/src/main_screen.dart';
+import 'package:bft_clientes/src/init_router.dart';
+import 'package:bft_clientes/src/screens/customers/view/edit_customer_screen.dart';
+import 'package:bft_clientes/src/screens/main/main_screen.dart';
+import 'package:bft_clientes/src/screens/settings/settings_screen.dart';
+import 'package:bft_clientes/src/screens/weekly_message/weekly_message_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -10,13 +14,13 @@ import 'firebase_options.dart';
 import 'services/controllers/customers_provider.dart';
 
 void main() async {
-  runApp(const CustomersManager());
-
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  runApp(const CustomersManager());
 }
 
 class CustomersManager extends StatelessWidget {
@@ -39,8 +43,16 @@ class CustomersManager extends StatelessWidget {
               color: Colors.white,
             ),
           ),
+          colorScheme: ColorScheme.fromSwatch(backgroundColor: Colors.white, primarySwatch: Colors.brown),
         ),
-        home: const MainScreen(),
+        initialRoute: RouterScreen.route,
+        routes: {
+          RouterScreen.route: (context) => const RouterScreen(),
+          MainScreen.route: (context) => const MainScreen(),
+          SettingsScreen.route: (context) => const SettingsScreen(),
+          WeekMessageScreen.route: (context) => const WeekMessageScreen(),
+          EditCustomerModal.route: (context) => const EditCustomerModal(),
+        },
       ),
     );
   }

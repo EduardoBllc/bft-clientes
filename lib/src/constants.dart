@@ -157,22 +157,24 @@ BoxShadow kTopBoxShadow = BoxShadow(
   color: kWeakShadowColor,
 );
 
-AppBar defaultAppBar(context, {List<Widget>? actions, void Function()? onReturnPressed}) {
+AppBar defaultAppBar(context, {List<Widget>? actions, void Function()? onReturnPressed, bool hasReturnButton = true}) {
   return AppBar(
     actions: actions,
-    leading: TextButton(
-      onPressed: () {
-        if (onReturnPressed != null) {
-          onReturnPressed();
-        } else {
-          Navigator.pop(context);
-        }
-      },
-      child: const Icon(
-        Icons.arrow_back_outlined,
-        color: Colors.white,
-      ),
-    ),
+    leading: hasReturnButton
+        ? TextButton(
+            onPressed: () {
+              if (onReturnPressed != null) {
+                onReturnPressed();
+              } else {
+                Navigator.pop(context);
+              }
+            },
+            child: const Icon(
+              Icons.arrow_back_outlined,
+              color: Colors.white,
+            ),
+          )
+        : const SizedBox(),
     backgroundColor: const Color(0xFF000000),
     systemOverlayStyle: SystemUiOverlayStyle.light,
     scrolledUnderElevation: 0,

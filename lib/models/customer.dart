@@ -1,5 +1,7 @@
 import 'package:bft_clientes/models/utils/mixins/registerable.dart';
 import 'package:bft_clientes/services/utils.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class Customer implements Registerable {
   final int id;
@@ -41,27 +43,37 @@ class Customer implements Registerable {
     );
   }
 
-  factory Customer.fromJson(Map customerJson) {
-    DateTime datetimeBirthdate = Helper.cloudTimeStampToDateTime(customerJson['data_aniversario']);
+  factory Customer.fromJson(QueryDocumentSnapshot<Map<String, dynamic>> customerJson) {
     return Customer(
       id: customerJson['id'],
-      name: '${customerJson['primeiro_nome']} ${customerJson['sobrenome']}',
-      birthdate: datetimeBirthdate,
+      name: '${customerJson['nome']} ${customerJson['sobrenome']}',
+      birthdate: Helper.cloudTimeStampToDateTime(customerJson['data_aniversario']),
       whatsapp: customerJson['whatsapp'],
-      registerDate: customerJson['data_cadastro'],
-      modifiedDate: customerJson['data_modificacao'],
+      registerDate: Helper.cloudTimeStampToDateTime(customerJson['data_cadastro']),
+      modifiedDate: Helper.cloudTimeStampToDateTime(customerJson['data_modificacao']),
     );
   }
 
-  static List<Customer> fromJsonList(List<Map> jsonList) {
+  static List<Customer> fromJsonList(List<QueryDocumentSnapshot<Map<String, dynamic>>> jsonList) {
     return jsonList.map((item) => Customer.fromJson(item)).toList();
   }
+
+  static Customer generic = Customer(
+    id: -1,
+    name: '',
+    birthdate: DateTime.now(),
+    whatsapp: '',
+    registerDate: DateTime.now(),
+    modifiedDate: DateTime.now(),
+  );
 
   List<String> get _splittedName => name.split(' ');
 
   String get firstName => _splittedName.first;
 
   String get lastName => name.replaceAll('$firstName ', '');
+
+  String get formattedBirthdate => DateFormat('dd/MM/yyyy').format(birthdate);
 
   DateTime get _actualYearBirthdate => DateTime(
         DateTime.now().year,
@@ -94,11 +106,14 @@ class Customer implements Registerable {
   String get log => '$name, contato: $whatsapp, aniversário: $dmBirthdate';
 
   @override
-  Map<String, dynamic> get toMap => {
+  Map<String, dynamic> get json => {
         'id': id,
-        'primeiro_nome': firstName,
+        'nome': firstName,
         'sobrenome': lastName,
         'whatsapp': whatsapp,
+        'mensagem': customMessage ?? '',
         'data_aniversario': birthdate,
+        'data_cadastro': registerDate,
+        'data_modificacao': modifiedDate,
       };
 }

@@ -23,8 +23,8 @@ abstract class FirebaseServices {
     final FirebaseFirestore firestore = FirebaseFirestore.instance;
     log('Buscando todos os documentos da coleçao $collectionName');
     try {
-      var allDocs = await firestore.collection(controlTableName).get();
-      log('Foram encontrados ${allDocs.docs.length} documentos da tanela $collectionName');
+      var allDocs = await firestore.collection(collectionName).get();
+      log('Foram encontrados ${allDocs.docs.length} documentos da tabela $collectionName');
       return allDocs.docs;
     } on FirebaseException catch (e) {
       log('Erro ao procurar documentos');
@@ -74,7 +74,7 @@ abstract class FirebaseServices {
 
   Future<String?> registerObject<T extends Registerable>(Mappable object, String collection, int id) async {
     try {
-      await firestore.collection(collection).doc(id.toString()).set(object.toMap);
+      await firestore.collection(collection).doc(id.toString()).set(object.json);
       await stepInCode(collection);
       if (object is Loggable) {
         log('Objeto do tipo $T: ${object.log}');

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import '../../models/customer.dart';
 
 class CustomersProvider extends ChangeNotifier {
-  final List<Customer> customersList = [
+  List<Customer> _customersList = [
     // Customer(name: 'João de Almeida', birthdate: DateTime(1998, 2, 24), whatsapp: '54996758088'),
     // Customer(name: 'Adriano Souza Vieira', birthdate: DateTime(1967, 3, 16), whatsapp: '54992814567'),
     // Customer(name: 'Pedro Augusto Dias', birthdate: DateTime(2003, 3, 16), whatsapp: '54995734512'),
@@ -58,8 +58,19 @@ class CustomersProvider extends ChangeNotifier {
     // Customer(name: 'Roberto Farias', birthdate: DateTime(1992, 4, 4), whatsapp: '31987665440'),
   ];
 
+  List<Customer> get customersList => _customersList;
+  set customersList(List<Customer> customerList) {
+    _customersList = customerList;
+    notifyListeners();
+  }
+
+  void addCustomer(Customer customer) {
+    _customersList.add(customer);
+    notifyListeners();
+  }
+
   Customer _customerFinder(Customer customer) {
-    return customersList[customersList.indexOf(customer)];
+    return _customersList[_customersList.indexOf(customer)];
   }
 
   void changeCustomerMessage(Customer customer, String message) {
@@ -87,7 +98,7 @@ class CustomersProvider extends ChangeNotifier {
   }
 
   void removeCustomer(Customer customer) {
-    customersList.remove(customer);
+    _customersList.remove(customer);
     notifyListeners();
   }
 }

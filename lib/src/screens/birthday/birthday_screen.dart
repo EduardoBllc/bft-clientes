@@ -7,9 +7,9 @@ import 'package:bft_clientes/src/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/color_theme.dart';
-import '../models/customer.dart';
-import 'components/customer_tile.dart';
+import '../../../models/color_theme.dart';
+import '../../../models/customer.dart';
+import '../customers/view/components/customer_tile.dart';
 
 class DailyMessagesScreen extends StatelessWidget {
   const DailyMessagesScreen({super.key});

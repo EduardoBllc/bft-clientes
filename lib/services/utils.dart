@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
@@ -9,8 +10,9 @@ class Helper {
     try {
       int timestampMilli = timestamp.millisecondsSinceEpoch;
       dateTimeResult = DateTime.fromMillisecondsSinceEpoch(timestampMilli);
-    } catch (e) {
-      log(e.toString());
+    } catch (err, stackTrace) {
+      log('Erro: $err');
+      log('StackTrace: $stackTrace');
     }
     return dateTimeResult;
   }
