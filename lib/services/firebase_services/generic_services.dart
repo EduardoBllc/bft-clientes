@@ -2,8 +2,6 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../models/utils/mixins/loggable.dart';
-import '../../models/utils/mixins/mappable.dart';
 import '../../models/utils/mixins/registerable.dart';
 
 abstract class FirebaseServices {
@@ -72,16 +70,37 @@ abstract class FirebaseServices {
     }
   }
 
-  Future<String?> registerObject<T extends Registerable>(Mappable object, String collection, int id) async {
+  Future<String?> registerObject(Registerable object, String collection) async {
     try {
-      await firestore.collection(collection).doc(id.toString()).set(object.json);
+      await firestore.collection(collection).doc('${object.id}').set(object.json);
       await stepInCode(collection);
-      if (object is Loggable) {
-        log('Objeto do tipo $T: ${object.log}');
-      }
+      log('Cadastrado Objeto do tipo ${object.runtimeType}: ${object.log}');
       return null;
     } on FirebaseException catch (e) {
       log('Erro ao tentar cadastrar item na tabela $collection');
+      firebaseErrorLogger(e);
+      return 'Erro: não foi possível cadastrar item';
+    } catch (e) {
+      log(e.toString());
+      return 'Erro: Ocorreu um problema ao cadastrar item';
+    }
+  }
+
+  Future<String?> editObject(
+    String collection,
+    Map<String, dynamic> objectChanges,
+    int objectId,
+  ) async {
+    try {
+      await firestore.collection(collection).doc('$objectId').update(objectChanges);
+      log('Item de id $objectId da tabela $collection editado com sucesso');
+      log('Campos que foram editados:');
+      for (String key in objectChanges.keys) {
+        log('$key: ${objectChanges[key]}');
+      }
+      return null;
+    } on FirebaseException catch (e) {
+      log('Erro ao tentar atualizar item de id $objectId da tabela $collection');
       firebaseErrorLogger(e);
       return e.message;
     } catch (e) {

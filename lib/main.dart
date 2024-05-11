@@ -1,6 +1,7 @@
 import 'package:bft_clientes/services/controllers/messages_provider.dart';
 import 'package:bft_clientes/services/controllers/settings_provider.dart';
 import 'package:bft_clientes/src/init_router.dart';
+import 'package:bft_clientes/src/screens/customers/view/customers_screen.dart';
 import 'package:bft_clientes/src/screens/customers/view/edit_customer_screen.dart';
 import 'package:bft_clientes/src/screens/main/main_screen.dart';
 import 'package:bft_clientes/src/screens/settings/settings_screen.dart';
@@ -52,6 +53,7 @@ class CustomersManager extends StatelessWidget {
           SettingsScreen.route: (context) => const SettingsScreen(),
           WeekMessageScreen.route: (context) => const WeekMessageScreen(),
           EditCustomerModal.route: (context) => const EditCustomerModal(),
+          CustomersScreen.route: (context) => const CustomersScreen(),
         },
       ),
     );

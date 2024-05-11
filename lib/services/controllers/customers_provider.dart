@@ -78,9 +78,10 @@ class CustomersProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void editCustomer(
+  Customer editCustomer(
     Customer customer, {
     String? name,
+    String? message,
     String? whatsapp,
     DateTime? birthdate,
   }) {
@@ -94,7 +95,11 @@ class CustomersProvider extends ChangeNotifier {
     if (whatsapp != null) {
       providerCustomer.whatsapp = whatsapp;
     }
+    if (message != null) {
+      providerCustomer.customMessage = message;
+    }
     notifyListeners();
+    return providerCustomer;
   }
 
   void removeCustomer(Customer customer) {

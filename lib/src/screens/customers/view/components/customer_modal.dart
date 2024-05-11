@@ -32,7 +32,6 @@ class CustomerModal extends StatelessWidget {
             elevation: const MaterialStatePropertyAll<double>(10),
           ),
           onPressed: () {
-            Navigator.pop(context);
             Navigator.pushNamed(
               context,
               EditCustomerModal.route,

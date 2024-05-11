@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 class Customer implements Registerable {
+  @override
   final int id;
   String name;
   DateTime birthdate;

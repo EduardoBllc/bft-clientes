@@ -19,6 +19,8 @@ class CustomersScreen extends StatefulWidget {
 
   final bool createCustomer;
 
+  static const route = '/customers';
+
   @override
   State<CustomersScreen> createState() => _CustomersScreenState();
 }

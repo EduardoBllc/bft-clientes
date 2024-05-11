@@ -171,6 +171,7 @@ class _CreateCustomerModalState extends State<CreateCustomerModal> {
                             ),
                             onTap: () async {
                               await showDatePicker(
+                                locale: const Locale('pt', 'BR'),
                                 context: context,
                                 firstDate: DateTime.now().subtract(const Duration(days: 36500)),
                                 lastDate: DateTime.now(),
@@ -206,30 +207,34 @@ class _CreateCustomerModalState extends State<CreateCustomerModal> {
                                 setState(() {
                                   isLoading = true;
                                 });
-                                String? customerRegister = await FirebaseCustomersServices().registerCustomer(
+                                await FirebaseCustomersServices()
+                                    .registerCustomer(
                                   context,
                                   name: name,
                                   whatsapp: whatsapp,
                                   birthdate: birthdate!,
-                                );
-                                if (!mounted) return;
-                                if (customerRegister != null) {
+                                )
+                                    .onError((error, stackTrace) {
                                   showAdaptiveDialog(
                                     context: context,
                                     builder: (context) => const AlertDialog.adaptive(
                                       title: Text('Não foi possível cadastrar cliente!'),
-                                      content: Text('Por favor, tente novamente e contate o desenvolvedor.'),
+                                      content: Text(
+                                        'Por favor, tente novamente. Se o erro persistir, contate o desenvolvedor.',
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
                                   );
-                                } else {
-                                  Navigator.pop(context);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Cliente cadastrado com sucesso'),
-                                      backgroundColor: Colors.green,
-                                    ),
-                                  );
-                                }
+                                  return;
+                                });
+                                if (!mounted) return;
+                                Navigator.pop(context);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Cliente cadastrado com sucesso'),
+                                    backgroundColor: Colors.green,
+                                  ),
+                                );
                                 setState(() {
                                   isLoading = false;
                                 });

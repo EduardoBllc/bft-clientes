@@ -1,5 +1,5 @@
+import 'package:bft_clientes/services/firebase_services/customers_services.dart';
 import 'package:bft_clientes/src/constants.dart';
-import 'package:bft_clientes/src/screens/customers/view/components/customer_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 
 import '../../../../models/color_theme.dart';
 import '../../../../models/customer.dart';
-import '../../../../services/controllers/customers_provider.dart';
 import '../../../../services/controllers/settings_provider.dart';
 
 class EditCustomerModal extends StatefulWidget {
@@ -20,6 +19,8 @@ class EditCustomerModal extends StatefulWidget {
 }
 
 class _EditCustomerModalState extends State<EditCustomerModal> {
+  late final FirebaseCustomersServices customersServices;
+
   bool isLoading = true;
 
   Customer customer = Customer.generic;
@@ -36,6 +37,7 @@ class _EditCustomerModalState extends State<EditCustomerModal> {
   @override
   void initState() {
     super.initState();
+    customersServices = FirebaseCustomersServices();
     birthdateController = TextEditingController(
       text: DateFormat('dd/MM/yyyy').format(customer.birthdate),
     );
@@ -56,18 +58,14 @@ class _EditCustomerModalState extends State<EditCustomerModal> {
   @override
   Widget build(BuildContext context) {
     ColorTheme appTheme = Provider.of<SettingsProvider>(context, listen: false).appTheme;
+    bool hasChanges = (newName != null && newName != customer.name) ||
+        (newBirthdate != null && newBirthdate != customer.birthdate) ||
+        (newWhatsapp != null && newWhatsapp != customer.whatsapp) ||
+        (newMessage != null && newMessage!.isNotEmpty && newMessage != customer.customMessage);
+
     return Scaffold(
       backgroundColor: appTheme.backgroundColor,
-      appBar: defaultAppBar(
-        context,
-        onReturnPressed: () {
-          Navigator.pop(context);
-          showModalBottomSheet(
-            context: context,
-            builder: (context) => CustomerModal(customer),
-          );
-        },
-      ),
+      appBar: defaultAppBar(context),
       body: isLoading
           ? const Center(
               child: CircularProgressIndicator(),
@@ -96,7 +94,7 @@ class _EditCustomerModalState extends State<EditCustomerModal> {
                                     ),
                                   ),
                                   Text(
-                                    '${customer}',
+                                    '$customer',
                                     style: TextStyle(
                                       fontSize: 18,
                                       color: appTheme.altSecondaryFontColor,
@@ -317,7 +315,9 @@ class _EditCustomerModalState extends State<EditCustomerModal> {
                                               ),
                                             ),
                                             onChanged: (text) {
-                                              newMessage = text;
+                                              setState(() {
+                                                newMessage = text;
+                                              });
                                             },
                                           ),
                                         ),
@@ -349,17 +349,13 @@ class _EditCustomerModalState extends State<EditCustomerModal> {
                             ),
                             onPressed: () {
                               Navigator.pop(context);
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (context) => CustomerModal(customer),
-                              );
                             },
                             child: const Text(
                               'Cancelar',
                             ),
                           ),
                         ),
-                        if (newName != null || newBirthdate != null || newWhatsapp != null)
+                        if (hasChanges)
                           Container(
                             margin: const EdgeInsets.only(left: 20),
                             width: 150,
@@ -371,25 +367,39 @@ class _EditCustomerModalState extends State<EditCustomerModal> {
                                   ),
                                 ),
                               ),
-                              onPressed: () {
+                              onPressed: () async {
                                 if (formKey.currentState!.validate()) {
-                                  Provider.of<CustomersProvider>(context, listen: false).editCustomer(
+                                  var customerEdition = await customersServices.editCustomer(
+                                    context,
                                     customer,
                                     name: newName,
                                     whatsapp: newWhatsapp,
                                     birthdate: newBirthdate,
+                                    message: newMessage,
                                   );
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      backgroundColor: Colors.green,
-                                      content: Text('Cliente alterado com sucesso!'),
-                                    ),
-                                  );
-                                  Navigator.pop(context);
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (context) => CustomerModal(customer),
-                                  );
+                                  if (customerEdition == null) {
+                                    Navigator.pop(context);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        backgroundColor: Colors.green,
+                                        content: Text('Cliente alterado com sucesso!'),
+                                      ),
+                                    );
+                                  } else {
+                                    showAdaptiveDialog(
+                                      context: context,
+                                      builder: (context) => const AlertDialog.adaptive(
+                                        title: Text(
+                                          'Erro Desconhecido',
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        content: Text(
+                                          'Não foi possível editar cliente.',
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    );
+                                  }
                                 }
                               },
                               child: const Text(

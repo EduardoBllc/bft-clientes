@@ -3,9 +3,9 @@ import 'package:bft_clientes/src/components/standard_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../services/controllers/settings_provider.dart';
 import '../../models/color_theme.dart';
 import '../../models/customer.dart';
+import '../../services/controllers/settings_provider.dart';
 import '../constants.dart';
 
 class MessageEditingCustomerModal extends StatefulWidget {
@@ -82,13 +82,13 @@ class _MessageEditingCustomerModalState extends State<MessageEditingCustomerModa
                         ),
                         boxShadow: [kBottomBoxShadow],
                       ),
-                      child: Text(
+                      child: const Text(
                         'Mensagem personalizada do cliente:',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: appTheme.fontColor,
+                          color: Colors.white,
                         ),
                       ),
                     ),
